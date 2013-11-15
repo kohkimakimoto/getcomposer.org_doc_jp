@@ -289,7 +289,7 @@ run this instead:
 
     $ composer install
 
-[上記の例](#declaring-dependencies-)では、monologを`vendor/monolog/monolog`にダウンロードします。
+[前述の例](#declaring-dependencies-)では、monologを`vendor/monolog/monolog`にダウンロードします。
 
 <!--
 Following the [example above](#declaring-dependencies), this will download

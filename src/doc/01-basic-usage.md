@@ -1,12 +1,20 @@
-# Basic usage
+# Basic usage - 基本的な使い方
 
-## Installation
+## Installation - インストール
 
+Composerをインストールするために、`composer.phar`の実行ファイルをダウンロードする必要があります。
+
+<!--
 To install Composer, you just need to download the `composer.phar` executable.
+-->
 
     $ curl -sS https://getcomposer.org/installer | php
 
+詳細は[イントロダクション](00-intro.html)の章を見てください。
+
+<!--
 For the details, see the [Introduction](00-intro.md) chapter.
+-->
 
 To check if Composer is working, just run the PHAR through `php`:
 

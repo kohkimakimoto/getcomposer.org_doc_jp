@@ -1,4 +1,4 @@
 # getcomposer.org_doc_jp
 
-???(ﾟ∀ﾟ )???
+[http://getcomposer.org/doc/](http://getcomposer.org/doc/)の日本語訳。
 

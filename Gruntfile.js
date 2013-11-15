@@ -17,6 +17,7 @@ module.exports = function(grunt) {
       dist: {
         files: [
           { expand: true, cwd: "src/", src: ['index.html', "doc/index.html", 'favicon.ico', 'img/*'], dest: 'dest/getcomposer.org_doc_jp/', filter: 'isFile'},
+          { expand: true, cwd: "src/", src: ['index.html'], dest: 'dest/', filter: 'isFile'}
         ]
       }
     },

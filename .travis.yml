@@ -4,7 +4,7 @@ node_js:
 before_script:
   - npm install -g grunt-cli
   - npm install 
-  - git clone --quiet https://github.com/kohkimakimoto/getcomposer.org_doc_jp.git dest
+  - git clone --quiet https://github.com/kohkimakimoto/getcomposer.org_doc_jp.git dest/getcomposer.org_doc_jp
   - pushd dest/getcomposer.org_doc_jp
   - git checkout gh-pages
   - popd

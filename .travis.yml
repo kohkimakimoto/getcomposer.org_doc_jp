@@ -16,11 +16,11 @@ after_success:
   - cd dest
   - git add -A
   - git commit -m 'Update'
-  - git push https://$GH_TOKEN@github.com/kohkimakimoto/getcomposer.org_doc_jp.git gh-pages
+  - '[ "$TRAVIS_BRANCH" == "master" ] && [ $GH_TOKEN ] && git push --quiet https://$GH_TOKEN@github.com/kohkimakimoto/getcomposer.org_doc_jp.git gh-pages'
 env:
   global:
     - GIT_COMMITTER_NAME="Kohki Makimoto"
     - GIT_COMMITTER_EMAIL="kohki.makimoto@gmail.com"
     - GIT_AUTHOR_NAME="Kohki Makimoto"
     - GIT_AUTHOR_EMAIL="kohki.makimoto@gmail.com"
-    - secure: "Dbr4uBfPxdTWWB0F/rivGxABdRtRfoJPmZzTqQXGP/Rdp83+o2ljcYbaluhQ+wybkTbtfLA9R77yOZRXv/pJt6vJ8O/ai8wpeqdA5AsaoZTN+Svi/r3QPKsASFK/efL1SAPdW+7Fc1fuVPqQ+gTAQLKERXVHeF+Z4v92eNyvyuo="
+    - secure: "U8aJLlOT9rUTUL2gbRBM1NBkbTsqJnv6m2YwcyTG4S5o/5sgPdwph6Pcd5tKADlUSOi7kkd2IH1FvcF/PAhAixkrJ9wC4B+RGwO51/a4hMlg0pMOFdM30OTN8TzdZVf4PPv3XC3j0oVJeFE4k5ySZbWnkBwNBEFL9hwG7v2E+sM="

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Composer</title>
+        <meta name="description" content="Dependency Management for PHP">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="stylesheet" href="/css/styles.min.css">
+        <script>
+            if (location.host == "192.168.56.21:12345") {
+                // It's my local development environment host.
+                document.write(
+                    '<script src="http://' + 
+                    (location.host || 'localhost').split(':')[0] + 
+                    ':35729/livereload.js?snipver=1"></' + 
+                    'script>'
+                )
+            }
+        </script>
+    </head>
+    <body>
+        <div id="container">
+            <header>
+            </header>
+            <div id="main" role="main">
+                <!--
+    tagline: Modify the way certain types of packages are installed
+-->
+
+<h1 id="setting-up-and-using-custom-installers">Setting up and using custom installers</h1>
+<h2 id="synopsis">Synopsis</h2>
+<p>At times it may be necessary for a package to require additional actions during
+installation, such as installing packages outside of the default <code>vendor</code>
+library.</p>
+<p>In these cases you could consider creating a Custom Installer to handle your
+specific logic.</p>
+<h2 id="calling-a-custom-installer">Calling a Custom Installer</h2>
+<p>Suppose that your project already has a Custom Installer for specific modules
+then invoking that installer is a matter of defining the correct <a href="../04-schema.md#type">type</a> in
+your package file.</p>
+<blockquote>
+<p><em>See the next chapter for an instruction how to create Custom Installers.</em></p>
+</blockquote>
+<p>Every Custom Installer defines which <a href="../04-schema.md#type">type</a> string it will recognize. Once
+recognized it will completely override the default installer and only apply its
+own logic.</p>
+<p>An example use-case would be:</p>
+<blockquote>
+<p>phpDocumentor features Templates that need to be installed outside of the
+default /vendor folder structure. As such they have chosen to adopt the
+<code>phpdocumentor-template</code> <a href="../04-schema.md#type">type</a> and create a plugin providing the Custom
+Installer to send these templates to the correct folder.</p>
+</blockquote>
+<p>An example composer.json of such a template package would be:</p>
+<pre><code>{
+    &quot;name&quot;: &quot;phpdocumentor/template-responsive&quot;,
+    &quot;type&quot;: &quot;phpdocumentor-template&quot;,
+    &quot;require&quot;: {
+        &quot;phpdocumentor/template-installer-plugin&quot;: &quot;*&quot;
+    }
+}</code></pre>
+<blockquote>
+<p><strong>IMPORTANT</strong>: to make sure that the template installer is present at the
+time the template package is installed, template packages should require
+the plugin package.</p>
+</blockquote>
+<h2 id="creating-an-installer">Creating an Installer</h2>
+<p>A Custom Installer is defined as a class that implements the
+<a href="https://github.com/composer/composer/blob/master/src/Composer/Plugin/PluginInterface.php"><code>Composer\Installer\InstallerInterface</code></a> and is usually distributed in a
+Composer Plugin.</p>
+<p>A basic Installer Plugin would thus compose of three files:</p>
+<ol>
+<li>the package file: composer.json</li>
+<li>The Plugin class, e.g.: <code>My\Project\Composer\Plugin.php</code>, containing a class that implements <code>Composer\Plugin\PluginInterface</code>.</li>
+<li>The Installer class, e.g.: <code>My\Project\Composer\Installer.php</code>, containing a class that implements <code>Composer\Installer\InstallerInterface</code>.</li>
+</ol>
+<h3 id="composer-json">composer.json</h3>
+<p>The package file is the same as any other package file but with the following
+requirements:</p>
+<ol>
+<li>the <a href="../04-schema.md#type">type</a> attribute must be <code>composer-plugin</code>.</li>
+<li>the <a href="../04-schema.md#extra">extra</a> attribute must contain an element <code>class</code> defining the
+class name of the plugin (including namespace). If a package contains
+multiple plugins this can be array of class names.</li>
+</ol>
+<p>Example:</p>
+<pre><code>{
+    &quot;name&quot;: &quot;phpdocumentor/template-installer-plugin&quot;,
+    &quot;type&quot;: &quot;composer-plugin&quot;,
+    &quot;license&quot;: &quot;MIT&quot;,
+    &quot;autoload&quot;: {
+        &quot;psr-0&quot;: {&quot;phpDocumentor\\Composer&quot;: &quot;src/&quot;}
+    },
+    &quot;extra&quot;: {
+        &quot;class&quot;: &quot;phpDocumentor\\Composer\\TemplateInstallerPlugin&quot;
+    },
+    &quot;require&quot;: {
+        &quot;composer-plugin-api&quot;: &quot;1.0.0&quot;
+    }
+}</code></pre>
+<h3 id="the-plugin-class">The Plugin class</h3>
+<p>The class defining the Composer plugin must implement the
+<a href="https://github.com/composer/composer/blob/master/src/Composer/Plugin/PluginInterface.php"><code>Composer\Plugin\PluginInterface</code></a>. It can then register the Custom
+Installer in its <code>activate()</code> method.</p>
+<p>The class may be placed in any location and have any name, as long as it is
+autoloadable and matches the <code>extra.class</code> element in the package definition.</p>
+<p>Example:</p>
+<pre><code>namespace phpDocumentor\Composer;
+
+use Composer\Composer;
+use Composer\IO\IOInterface;
+use Composer\Plugin\PluginInterface;
+
+class TemplateInstallerPlugin implements PluginInterface
+{
+    public function activate(Composer $composer, IOInterface $io)
+    {
+        $installer = new TemplateInstaller($io, $composer);
+        $composer-&gt;getInstallationManager()-&gt;addInstaller($installer);
+    }
+}</code></pre>
+<h3 id="the-custom-installer-class">The Custom Installer class</h3>
+<p>The class that executes the custom installation should implement the
+<a href="https://github.com/composer/composer/blob/master/src/Composer/Installer/InstallerInterface.php"><code>Composer\Installer\InstallerInterface</code></a> (or extend another installer that
+implements that interface). It defines the <a href="../04-schema.md#type">type</a> string as it will be
+recognized by packages that will use this installer in the <code>supports()</code> method.</p>
+<blockquote>
+<p><strong>NOTE</strong>: <em>choose your <a href="../04-schema.md#type">type</a> name carefully, it is recommended to follow
+the format: <code>vendor-type</code></em>. For example: <code>phpdocumentor-template</code>.</p>
+</blockquote>
+<p>The InstallerInterface class defines the following methods (please see the
+source for the exact signature):</p>
+<ul>
+<li><strong>supports()</strong>, here you test whether the passed <a href="../04-schema.md#type">type</a> matches the name
+that you declared for this installer (see the example).</li>
+<li><strong>isInstalled()</strong>, determines whether a supported package is installed or not.</li>
+<li><strong>install()</strong>, here you can determine the actions that need to be executed
+upon installation.</li>
+<li><strong>update()</strong>, here you define the behavior that is required when Composer is
+invoked with the update argument.</li>
+<li><strong>uninstall()</strong>, here you can determine the actions that need to be executed
+when the package needs to be removed.</li>
+<li><strong>getInstallPath()</strong>, this method should return the location where the
+package is to be installed, <em>relative from the location of composer.json.</em></li>
+</ul>
+<p>Example:</p>
+<pre><code>namespace phpDocumentor\Composer;
+
+use Composer\Package\PackageInterface;
+use Composer\Installer\LibraryInstaller;
+
+class TemplateInstaller extends LibraryInstaller
+{
+    /**
+     * {@inheritDoc}
+     */
+    public function getPackageBasePath(PackageInterface $package)
+    {
+        $prefix = substr($package-&gt;getPrettyName(), 0, 23);
+        if (&#39;phpdocumentor/template-&#39; !== $prefix) {
+            throw new \InvalidArgumentException(
+                &#39;Unable to install template, phpdocumentor templates &#39;
+                .&#39;should always start their package name with &#39;
+                .&#39;&quot;phpdocumentor/template-&quot;&#39;
+            );
+        }
+
+        return &#39;data/templates/&#39;.substr($package-&gt;getPrettyName(), 23);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function supports($packageType)
+    {
+        return &#39;phpdocumentor-template&#39; === $packageType;
+    }
+}</code></pre>
+<p>The example demonstrates that it is quite simple to extend the
+<a href="https://github.com/composer/composer/blob/master/src/Composer/Installer/LibraryInstaller.php"><code>Composer\Installer\LibraryInstaller</code></a> class to strip a prefix
+(<code>phpdocumentor/template-</code>) and use the remaining part to assemble a completely
+different installation path.</p>
+<blockquote>
+<p><em>Instead of being installed in <code>/vendor</code> any package installed using this
+Installer will be put in the <code>/data/templates/&lt;stripped name&gt;</code> folder.</em></p>
+</blockquote>
+
+                 <p class="fork-and-edit">
+                    誤字を見つけましたか？ 何か間違いがありますか？ <a href="http://github.com/composer/composer/">forkして編集してください</a>！
+                    <!--
+                    Found a typo? Something is wrong in this documentation? Just <a href="http://github.com/composer/composer/edit/master/doc/{{ file }}">fork and edit</a> it!
+                    -->
+                </p>
+            </div>
+            <footer>
+                <p class="license">Composer and all content on this site are released under the <a href="https://github.com/composer/composer/blob/master/LICENSE">MIT license</a>.</p>
+            </footer>
+        </div>
+    </body>
+</html>

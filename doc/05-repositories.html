@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Composer</title>
+        <meta name="description" content="Dependency Management for PHP">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="stylesheet" href="/css/styles.min.css">
+        <script>
+            if (location.host == "192.168.56.21:12345") {
+                // It's my local development environment host.
+                document.write(
+                    '<script src="http://' + 
+                    (location.host || 'localhost').split(':')[0] + 
+                    ':35729/livereload.js?snipver=1"></' + 
+                    'script>'
+                )
+            }
+        </script>
+    </head>
+    <body>
+        <div id="container">
+            <header>
+            </header>
+            <div id="main" role="main">
+                <h1 id="repositories">Repositories</h1>
+<p>This chapter will explain the concept of packages and repositories, what kinds
+of repositories are available, and how they work.</p>
+<h2 id="concepts">Concepts</h2>
+<p>Before we look at the different types of repositories that exist, we need to
+understand some of the basic concepts that composer is built on.</p>
+<h3 id="package">Package</h3>
+<p>Composer is a dependency manager. It installs packages locally. A package is
+essentially just a directory containing something. In this case it is PHP
+code, but in theory it could be anything. And it contains a package
+description which has a name and a version. The name and the version are used
+to identify the package.</p>
+<p>In fact, internally composer sees every version as a separate package. While
+this distinction does not matter when you are using composer, it&#39;s quite
+important when you want to change it.</p>
+<p>In addition to the name and the version, there is useful metadata. The information
+most relevant for installation is the source definition, which describes where
+to get the package contents. The package data points to the contents of the
+package. And there are two options here: dist and source.</p>
+<p><strong>Dist:</strong> The dist is a packaged version of the package data. Usually a
+released version, usually a stable release.</p>
+<p><strong>Source:</strong> The source is used for development. This will usually originate
+from a source code repository, such as git. You can fetch this when you want
+to modify the downloaded package.</p>
+<p>Packages can supply either of these, or even both. Depending on certain
+factors, such as user-supplied options and stability of the package, one will
+be preferred.</p>
+<h3 id="repository">Repository</h3>
+<p>A repository is a package source. It&#39;s a list of packages/versions. Composer
+will look in all your repositories to find the packages your project requires.</p>
+<p>By default only the Packagist repository is registered in Composer. You can
+add more repositories to your project by declaring them in <code>composer.json</code>.</p>
+<p>Repositories are only available to the root package and the repositories
+defined in your dependencies will not be loaded. Read the
+<a href="faqs/why-can&#39;t-composer-load-repositories-recursively.md">FAQ entry</a> if you
+want to learn why.</p>
+<h2 id="types">Types</h2>
+<h3 id="composer">Composer</h3>
+<p>The main repository type is the <code>composer</code> repository. It uses a single
+<code>packages.json</code> file that contains all of the package metadata.</p>
+<p>This is also the repository type that packagist uses. To reference a
+<code>composer</code> repository, just supply the path before the <code>packages.json</code> file.
+In case of packagist, that file is located at <code>/packages.json</code>, so the URL of
+the repository would be <code>packagist.org</code>. For <code>example.org/packages.json</code> the
+repository URL would be <code>example.org</code>.</p>
+<h4 id="packages">packages</h4>
+<p>The only required field is <code>packages</code>. The JSON structure is as follows:</p>
+<pre><code>{
+    &quot;packages&quot;: {
+        &quot;vendor/package-name&quot;: {
+            &quot;dev-master&quot;: { @composer.json },
+            &quot;1.0.x-dev&quot;: { @composer.json },
+            &quot;0.0.1&quot;: { @composer.json },
+            &quot;1.0.0&quot;: { @composer.json }
+        }
+    }
+}</code></pre>
+<p>The <code>@composer.json</code> marker would be the contents of the <code>composer.json</code> from
+that package version including as a minimum:</p>
+<ul>
+<li>name</li>
+<li>version</li>
+<li>dist or source</li>
+</ul>
+<p>Here is a minimal package definition:</p>
+<pre><code>{
+    &quot;name&quot;: &quot;smarty/smarty&quot;,
+    &quot;version&quot;: &quot;3.1.7&quot;,
+    &quot;dist&quot;: {
+        &quot;url&quot;: &quot;http://www.smarty.net/files/Smarty-3.1.7.zip&quot;,
+        &quot;type&quot;: &quot;zip&quot;
+    }
+}</code></pre>
+<p>It may include any of the other fields specified in the <a href="04-schema.md">schema</a>.</p>
+<h4 id="notify-batch">notify-batch</h4>
+<p>The <code>notify-batch</code> field allows you to specify an URL that will be called
+every time a user installs a package. The URL can be either an absolute path
+(that will use the same domain as the repository) or a fully qualified URL.</p>
+<p>An example value:</p>
+<pre><code>{
+    &quot;notify-batch&quot;: &quot;/downloads/&quot;
+}</code></pre>
+<p>For <code>example.org/packages.json</code> containing a <code>monolog/monolog</code> package, this
+would send a <code>POST</code> request to <code>example.org/downloads/</code> with following
+JSON request body:</p>
+<pre><code>{
+    &quot;downloads&quot;: [
+        {&quot;name&quot;: &quot;monolog/monolog&quot;, &quot;version&quot;: &quot;1.2.1.0&quot;},
+    ]
+}</code></pre>
+<p>The version field will contain the normalized representation of the version
+number.</p>
+<p>This field is optional.</p>
+<h4 id="includes">includes</h4>
+<p>For larger repositories it is possible to split the <code>packages.json</code> into
+multiple files. The <code>includes</code> field allows you to reference these additional
+files.</p>
+<p>An example:</p>
+<pre><code>{
+    &quot;includes&quot;: {
+        &quot;packages-2011.json&quot;: {
+            &quot;sha1&quot;: &quot;525a85fb37edd1ad71040d429928c2c0edec9d17&quot;
+        },
+        &quot;packages-2012-01.json&quot;: {
+            &quot;sha1&quot;: &quot;897cde726f8a3918faf27c803b336da223d400dd&quot;
+        },
+        &quot;packages-2012-02.json&quot;: {
+            &quot;sha1&quot;: &quot;26f911ad717da26bbcac3f8f435280d13917efa5&quot;
+        }
+    }
+}</code></pre>
+<p>The SHA-1 sum of the file allows it to be cached and only re-requested if the
+hash changed.</p>
+<p>This field is optional. You probably don&#39;t need it for your own custom
+repository.</p>
+<h4 id="provider-includes-and-providers-url">provider-includes and providers-url</h4>
+<p>For very large repositories like packagist.org using the so-called provider
+files is the preferred method. The <code>provider-includes</code> field allows you to
+list a set of files that list package names provided by this repository. The
+hash should be a sha256 of the files in this case.</p>
+<p>The <code>providers-url</code> describes how provider files are found on the server. It
+is an absolute path from the repository root.</p>
+<p>An example:</p>
+<pre><code>{
+    &quot;provider-includes&quot;: {
+        &quot;providers-a.json&quot;: {
+            &quot;sha256&quot;: &quot;f5b4bc0b354108ef08614e569c1ed01a2782e67641744864a74e788982886f4c&quot;
+        },
+        &quot;providers-b.json&quot;: {
+            &quot;sha256&quot;: &quot;b38372163fac0573053536f5b8ef11b86f804ea8b016d239e706191203f6efac&quot;
+        }
+    },
+    &quot;providers-url&quot;: &quot;/p/%package%$%hash%.json&quot;
+}</code></pre>
+<p>Those files contain lists of package names and hashes to verify the file
+integrity, for example:</p>
+<pre><code>{
+    &quot;providers&quot;: {
+        &quot;acme/foo&quot;: {
+            &quot;sha256&quot;: &quot;38968de1305c2e17f4de33aea164515bc787c42c7e2d6e25948539a14268bb82&quot;
+        },
+        &quot;acme/bar&quot;: {
+            &quot;sha256&quot;: &quot;4dd24c930bd6e1103251306d6336ac813b563a220d9ca14f4743c032fb047233&quot;
+        }
+    }
+}</code></pre>
+<p>The file above declares that acme/foo and acme/bar can be found in this
+repository, by loading the file referenced by <code>providers-url</code>, replacing
+<code>%name%</code> by the package name and <code>%hash%</code> by the sha256 field. Those files
+themselves just contain package definitions as described <a href="#packages">above</a>.</p>
+<p>This field is optional. You probably don&#39;t need it for your own custom
+repository.</p>
+<h4 id="stream-options">stream options</h4>
+<p>The <code>packages.json</code> file is loaded using a PHP stream. You can set extra options
+on that stream using the <code>options</code> parameter. You can set any valid PHP stream
+context option. See <a href="http://php.net/manual/en/context.php">Context options and parameters</a>
+for more information.</p>
+<h3 id="vcs">VCS</h3>
+<p>VCS stands for version control system. This includes versioning systems like
+git, svn or hg. Composer has a repository type for installing packages from
+these systems.</p>
+<h4 id="loading-a-package-from-a-vcs-repository">Loading a package from a VCS repository</h4>
+<p>There are a few use cases for this. The most common one is maintaining your
+own fork of a third party library. If you are using a certain library for your
+project and you decide to change something in the library, you will want your
+project to use the patched version. If the library is on GitHub (this is the
+case most of the time), you can simply fork it there and push your changes to
+your fork. After that you update the project&#39;s <code>composer.json</code>. All you have
+to do is add your fork as a repository and update the version constraint to
+point to your custom branch. For version constraint naming conventions see
+<a href="02-libraries.md">Libraries</a> for more information.</p>
+<p>Example assuming you patched monolog to fix a bug in the <code>bugfix</code> branch:</p>
+<pre><code>{
+    &quot;repositories&quot;: [
+        {
+            &quot;type&quot;: &quot;vcs&quot;,
+            &quot;url&quot;: &quot;https://github.com/igorw/monolog&quot;
+        }
+    ],
+    &quot;require&quot;: {
+        &quot;monolog/monolog&quot;: &quot;dev-bugfix&quot;
+    }
+}</code></pre>
+<p>When you run <code>php composer.phar update</code>, you should get your modified version
+of <code>monolog/monolog</code> instead of the one from packagist.</p>
+<p>Note that you should not rename the package unless you really intend to fork
+it in the long term, and completely move away from the original package.
+Composer will correctly pick your package over the original one since the
+custom repository has priority over packagist. If you want to rename the
+package, you should do so in the default (often master) branch and not in a
+feature branch, since the package name is taken from the default branch.</p>
+<p>If other dependencies rely on the package you forked, it is possible to
+inline-alias it so that it matches a constraint that it otherwise would not.
+For more information <a href="articles/aliases.md">see the aliases article</a>.</p>
+<h4 id="using-private-repositories">Using private repositories</h4>
+<p>Exactly the same solution allows you to work with your private repositories at
+GitHub and BitBucket:</p>
+<pre><code>{
+    &quot;require&quot;: {
+        &quot;vendor/my-private-repo&quot;: &quot;dev-master&quot;
+    },
+    &quot;repositories&quot;: [
+        {
+            &quot;type&quot;: &quot;vcs&quot;,
+            &quot;url&quot;:  &quot;git@bitbucket.org:vendor/my-private-repo.git&quot;
+        }
+    ]
+}</code></pre>
+<p>The only requirement is the installation of SSH keys for a git client.</p>
+<h4 id="git-alternatives">Git alternatives</h4>
+<p>Git is not the only version control system supported by the VCS repository.
+The following are supported:</p>
+<ul>
+<li><strong>Git:</strong> <a href="http://git-scm.com">git-scm.com</a></li>
+<li><strong>Subversion:</strong> <a href="http://subversion.apache.org">subversion.apache.org</a></li>
+<li><strong>Mercurial:</strong> <a href="http://mercurial.selenic.com">mercurial.selenic.com</a></li>
+</ul>
+<p>To get packages from these systems you need to have their respective clients
+installed. That can be inconvenient. And for this reason there is special
+support for GitHub and BitBucket that use the APIs provided by these sites, to
+fetch the packages without having to install the version control system. The
+VCS repository provides <code>dist</code>s for them that fetch the packages as zips.</p>
+<ul>
+<li><strong>GitHub:</strong> <a href="https://github.com">github.com</a> (Git)</li>
+<li><strong>BitBucket:</strong> <a href="https://bitbucket.org">bitbucket.org</a> (Git and Mercurial)</li>
+</ul>
+<p>The VCS driver to be used is detected automatically based on the URL. However,
+should you need to specify one for whatever reason, you can use <code>git</code>, <code>svn</code> or
+<code>hg</code> as the repository type instead of <code>vcs</code>.</p>
+<h4 id="subversion-options">Subversion Options</h4>
+<p>Since Subversion has no native concept of branches and tags, Composer assumes
+by default that code is located in <code>$url/trunk</code>, <code>$url/branches</code> and
+<code>$url/tags</code>. If your repository has a different layout you can change those
+values. For example if you used capitalized names you could configure the
+repository like this:</p>
+<pre><code>{
+    &quot;repositories&quot;: [
+        {
+            &quot;type&quot;: &quot;vcs&quot;,
+            &quot;url&quot;: &quot;http://svn.example.org/projectA/&quot;,
+            &quot;trunk-path&quot;: &quot;Trunk&quot;,
+            &quot;branches-path&quot;: &quot;Branches&quot;,
+            &quot;tags-path&quot;: &quot;Tags&quot;
+        }
+    ]
+}</code></pre>
+<p>If you have no branches or tags directory you can disable them entirely by
+setting the <code>branches-path</code> or <code>tags-path</code> to <code>false</code>.</p>
+<p>If the package is in a sub-directory, e.g. <code>/trunk/foo/bar/composer.json</code> and
+<code>/tags/1.0/foo/bar/composer.json</code>, then you can make composer access it by
+setting the <code>&quot;package-path&quot;</code> option to the sub-directory, in this example it
+would be <code>&quot;package-path&quot;: &quot;foo/bar/&quot;</code>.</p>
+<h3 id="pear">PEAR</h3>
+<p>It is possible to install packages from any PEAR channel by using the <code>pear</code>
+repository. Composer will prefix all package names with <code>pear-{channelName}/</code> to
+avoid conflicts. All packages are also aliased with prefix <code>pear-{channelAlias}/</code></p>
+<p>Example using <code>pear2.php.net</code>:</p>
+<pre><code>{
+    &quot;repositories&quot;: [
+        {
+            &quot;type&quot;: &quot;pear&quot;,
+            &quot;url&quot;: &quot;http://pear2.php.net&quot;
+        }
+    ],
+    &quot;require&quot;: {
+        &quot;pear-pear2.php.net/PEAR2_Text_Markdown&quot;: &quot;*&quot;,
+        &quot;pear-pear2/PEAR2_HTTP_Request&quot;: &quot;*&quot;
+    }
+}</code></pre>
+<p>In this case the short name of the channel is <code>pear2</code>, so the
+<code>PEAR2_HTTP_Request</code> package name becomes <code>pear-pear2/PEAR2_HTTP_Request</code>.</p>
+<blockquote>
+<p><strong>Note:</strong> The <code>pear</code> repository requires doing quite a few requests per
+package, so this may considerably slow down the installation process.</p>
+</blockquote>
+<h4 id="custom-vendor-alias">Custom vendor alias</h4>
+<p>It is possible to alias PEAR channel packages with a custom vendor name.</p>
+<p>Example:</p>
+<p>Suppose you have a private PEAR repository and wish to use Composer to
+incorporate dependencies from a VCS. Your PEAR repository contains the
+following packages:</p>
+<ul>
+<li><code>BasePackage</code></li>
+<li><code>IntermediatePackage</code>, which depends on <code>BasePackage</code></li>
+<li><code>TopLevelPackage1</code> and <code>TopLevelPackage2</code> which both depend on <code>IntermediatePackage</code></li>
+</ul>
+<p>Without a vendor alias, Composer will use the PEAR channel name as the
+vendor portion of the package name:</p>
+<ul>
+<li><code>pear-pear.foobar.repo/BasePackage</code></li>
+<li><code>pear-pear.foobar.repo/IntermediatePackage</code></li>
+<li><code>pear-pear.foobar.repo/TopLevelPackage1</code></li>
+<li><code>pear-pear.foobar.repo/TopLevelPackage2</code></li>
+</ul>
+<p>Suppose at a later time you wish to migrate your PEAR packages to a
+Composer repository and naming scheme, and adopt the vendor name of <code>foobar</code>.
+Projects using your PEAR packages would not see the updated packages, since
+they have a different vendor name (<code>foobar/IntermediatePackage</code> vs
+<code>pear-pear.foobar.repo/IntermediatePackage</code>).</p>
+<p>By specifying <code>vendor-alias</code> for the PEAR repository from the start, you can
+avoid this scenario and future-proof your package names.</p>
+<p>To illustrate, the following example would get the <code>BasePackage</code>,
+<code>TopLevelPackage1</code>, and <code>TopLevelPackage2</code> packages from your PEAR repository
+and <code>IntermediatePackage</code> from a Github repository:</p>
+<pre><code>{
+    &quot;repositories&quot;: [
+        {
+            &quot;type&quot;: &quot;git&quot;,
+            &quot;url&quot;: &quot;https://github.com/foobar/intermediate.git&quot;
+        },
+        {
+            &quot;type&quot;: &quot;pear&quot;,
+            &quot;url&quot;: &quot;http://pear.foobar.repo&quot;,
+            &quot;vendor-alias&quot;: &quot;foobar&quot;
+        }
+    ],
+    &quot;require&quot;: {
+        &quot;foobar/TopLevelPackage1&quot;: &quot;*&quot;,
+        &quot;foobar/TopLevelPackage2&quot;: &quot;*&quot;
+    }
+}</code></pre>
+<h3 id="package">Package</h3>
+<p>If you want to use a project that does not support composer through any of the
+means above, you still can define the package yourself by using a <code>package</code>
+repository.</p>
+<p>Basically, you define the same information that is included in the <code>composer</code>
+repository&#39;s <code>packages.json</code>, but only for a single package. Again, the
+minimum required fields are <code>name</code>, <code>version</code>, and either of <code>dist</code> or
+<code>source</code>.</p>
+<p>Here is an example for the smarty template engine:</p>
+<pre><code>{
+    &quot;repositories&quot;: [
+        {
+            &quot;type&quot;: &quot;package&quot;,
+            &quot;package&quot;: {
+                &quot;name&quot;: &quot;smarty/smarty&quot;,
+                &quot;version&quot;: &quot;3.1.7&quot;,
+                &quot;dist&quot;: {
+                    &quot;url&quot;: &quot;http://www.smarty.net/files/Smarty-3.1.7.zip&quot;,
+                    &quot;type&quot;: &quot;zip&quot;
+                },
+                &quot;source&quot;: {
+                    &quot;url&quot;: &quot;http://smarty-php.googlecode.com/svn/&quot;,
+                    &quot;type&quot;: &quot;svn&quot;,
+                    &quot;reference&quot;: &quot;tags/Smarty_3_1_7/distribution/&quot;
+                },
+                &quot;autoload&quot;: {
+                    &quot;classmap&quot;: [&quot;libs/&quot;]
+                }
+            }
+        }
+    ],
+    &quot;require&quot;: {
+        &quot;smarty/smarty&quot;: &quot;3.1.*&quot;
+    }
+}</code></pre>
+<p>Typically you would leave the source part off, as you don&#39;t really need it.</p>
+<blockquote>
+<p><strong>Note</strong>: This repository type has a few limitations and should be avoided
+whenever possible:</p>
+<ul>
+<li>Composer will not update the package unless you change the <code>version</code> field.</li>
+<li>Composer will not update the commit references, so if you use <code>master</code> as
+reference you will have to delete the package to force an update, and will
+have to deal with an unstable lock file.</li>
+</ul>
+</blockquote>
+<h2 id="hosting-your-own">Hosting your own</h2>
+<p>While you will probably want to put your packages on packagist most of the time,
+there are some use cases for hosting your own repository.</p>
+<ul>
+<li><p><strong>Private company packages:</strong> If you are part of a company that uses composer
+for their packages internally, you might want to keep those packages private.</p>
+</li>
+<li><p><strong>Separate ecosystem:</strong> If you have a project which has its own ecosystem,
+and the packages aren&#39;t really reusable by the greater PHP community, you
+might want to keep them separate to packagist. An example of this would be
+wordpress plugins.</p>
+</li>
+</ul>
+<p>For hosting your own packages, a native <code>composer</code> type of repository is 
+recommended, which provides the best performance.</p>
+<p>There are a few tools that can help you create a <code>composer</code> repository.</p>
+<h3 id="packagist">Packagist</h3>
+<p>The underlying application used by packagist is open source. This means that you
+can just install your own copy of packagist, re-brand, and use it. It&#39;s really
+quite straight-forward to do. However due to its size and complexity, for most
+small and medium sized companies willing to track a few packages will be better
+off using Satis.</p>
+<p>Packagist is a Symfony2 application, and it is <a href="https://github.com/composer/packagist">available on
+GitHub</a>. It uses composer internally and
+acts as a proxy between VCS repositories and the composer users. It holds a list
+of all VCS packages, periodically re-crawls them, and exposes them as a composer
+repository.</p>
+<p>To set your own copy, simply follow the instructions from the <a href="https://github.com/composer/packagist">packagist
+github repository</a>.</p>
+<h3 id="satis">Satis</h3>
+<p>Satis is a static <code>composer</code> repository generator. It is a bit like an ultra-
+lightweight, static file-based version of packagist.</p>
+<p>You give it a <code>composer.json</code> containing repositories, typically VCS and
+package repository definitions. It will fetch all the packages that are
+<code>require</code>d and dump a <code>packages.json</code> that is your <code>composer</code> repository.</p>
+<p>Check <a href="https://github.com/composer/satis">the satis GitHub repository</a> and
+the <a href="articles/handling-private-packages-with-satis.md">Satis article</a> for more
+information.</p>
+<h3 id="artifact">Artifact</h3>
+<p>There are some cases, when there is no ability to have one of the previously
+mentioned repository types online, even the VCS one. Typical example could be
+cross-organisation library exchange through built artifacts. Of course, most
+of the times they are private. To simplify maintenance, one can simply use a
+repository of type <code>artifact</code> with a folder containing ZIP archives of those
+private packages:</p>
+<pre><code>{
+    &quot;repositories&quot;: [
+        {
+            &quot;type&quot;: &quot;artifact&quot;,
+            &quot;url&quot;: &quot;path/to/directory/with/zips/&quot;
+        }
+    ],
+    &quot;require&quot;: {
+        &quot;private-vendor-one/core&quot;: &quot;15.6.2&quot;,
+        &quot;private-vendor-two/connectivity&quot;: &quot;*&quot;,
+        &quot;acme-corp/parser&quot;: &quot;10.3.5&quot;
+    }
+}</code></pre>
+<p>Each zip artifact is just a ZIP archive with <code>composer.json</code> in root folder:</p>
+<pre><code>$ unzip -l acme-corp-parser-10.3.5.zip
+composer.json
+...</code></pre>
+<p>If there are two archives with different versions of a package, they are both
+imported. When an archive with a newer version is added in the artifact folder
+and you run <code>update</code>, that version will be imported as well and Composer will
+update to the latest version.</p>
+<h2 id="disabling-packagist">Disabling Packagist</h2>
+<p>You can disable the default Packagist repository by adding this to your
+<code>composer.json</code>:</p>
+<pre><code>{
+    &quot;repositories&quot;: [
+        {
+            &quot;packagist&quot;: false
+        }
+    ]
+}</code></pre>
+<p>&larr; <a href="04-schema.md">Schema</a>  |  <a href="06-community.md">Community</a> &rarr;</p>
+
+                 <p class="fork-and-edit">
+                    誤字を見つけましたか？ 何か間違いがありますか？ <a href="http://github.com/composer/composer/">forkして編集してください</a>！
+                    <!--
+                    Found a typo? Something is wrong in this documentation? Just <a href="http://github.com/composer/composer/edit/master/doc/{{ file }}">fork and edit</a> it!
+                    -->
+                </p>
+            </div>
+            <footer>
+                <p class="license">Composer and all content on this site are released under the <a href="https://github.com/composer/composer/blob/master/LICENSE">MIT license</a>.</p>
+            </footer>
+        </div>
+    </body>
+</html>

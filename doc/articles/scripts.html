@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Composer</title>
+        <meta name="description" content="Dependency Management for PHP">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="stylesheet" href="/css/styles.min.css">
+        <script>
+            if (location.host == "192.168.56.21:12345") {
+                // It's my local development environment host.
+                document.write(
+                    '<script src="http://' + 
+                    (location.host || 'localhost').split(':')[0] + 
+                    ':35729/livereload.js?snipver=1"></' + 
+                    'script>'
+                )
+            }
+        </script>
+    </head>
+    <body>
+        <div id="container">
+            <header>
+            </header>
+            <div id="main" role="main">
+                <!--
+    tagline: Script are callbacks that are called before/after installing packages
+-->
+
+<h1 id="scripts">Scripts</h1>
+<h2 id="what-is-a-script-">What is a script?</h2>
+<p>A script, in Composer&#39;s terms, can either be a PHP callback (defined as a
+static method) or any command-line executable command. Scripts are useful
+for executing a package&#39;s custom code or package-specific commands during
+the Composer execution process.</p>
+<p><strong>NOTE: Only scripts defined in the root package&#39;s <code>composer.json</code> are
+executed. If a dependency of the root package specifies its own scripts,
+Composer does not execute those additional scripts.</strong></p>
+<h2 id="event-names">Event names</h2>
+<p>Composer fires the following named events during its execution process:</p>
+<ul>
+<li><strong>pre-install-cmd</strong>: occurs before the <code>install</code> command is executed.</li>
+<li><strong>post-install-cmd</strong>: occurs after the <code>install</code> command is executed.</li>
+<li><strong>pre-update-cmd</strong>: occurs before the <code>update</code> command is executed.</li>
+<li><strong>post-update-cmd</strong>: occurs after the <code>update</code> command is executed.</li>
+<li><strong>pre-status-cmd</strong>: occurs before the <code>status</code> command is executed.</li>
+<li><strong>post-status-cmd</strong>: occurs after the <code>status</code> command is executed.</li>
+<li><strong>pre-package-install</strong>: occurs before a package is installed.</li>
+<li><strong>post-package-install</strong>: occurs after a package is installed.</li>
+<li><strong>pre-package-update</strong>: occurs before a package is updated.</li>
+<li><strong>post-package-update</strong>: occurs after a package is updated.</li>
+<li><strong>pre-package-uninstall</strong>: occurs before a package has been uninstalled.</li>
+<li><strong>post-package-uninstall</strong>: occurs after a package has been uninstalled.</li>
+<li><strong>pre-autoload-dump</strong>: occurs before the autoloader is dumped, either
+during <code>install</code>/<code>update</code>, or via the <code>dump-autoload</code> command.</li>
+<li><strong>post-autoload-dump</strong>: occurs after the autoloader is dumped, either
+during <code>install</code>/<code>update</code>, or via the <code>dump-autoload</code> command.</li>
+<li><strong>post-root-package-install</strong>: occurs after the root package has been
+installed, during the <code>create-project</code> command.</li>
+<li><strong>post-create-project-cmd</strong>: occurs after the <code>create-project</code> command is
+executed.</li>
+</ul>
+<p><strong>NOTE: Composer makes no assumptions about the state of your dependencies 
+prior to <code>install</code> or <code>update</code>. Therefore, you should not specify scripts that 
+require Composer-managed dependencies in the <code>pre-update-cmd</code> or 
+<code>pre-install-cmd</code> event hooks. If you need to execute scripts prior to 
+<code>install</code> or <code>update</code> please make sure they are self-contained within your 
+root package.</strong></p>
+<h2 id="defining-scripts">Defining scripts</h2>
+<p>The root JSON object in <code>composer.json</code> should have a property called
+<code>&quot;scripts&quot;</code>, which contains pairs of named events and each event&#39;s
+corresponding scripts. An event&#39;s scripts can be defined as either as a string
+(only for a single script) or an array (for single or multiple scripts.)</p>
+<p>For any given event:</p>
+<ul>
+<li>Scripts execute in the order defined when their corresponding event is fired.</li>
+<li>An array of scripts wired to a single event can contain both PHP callbacks
+and command-line executables commands.</li>
+<li>PHP classes containing defined callbacks must be autoloadable via Composer&#39;s
+autoload functionality.</li>
+</ul>
+<p>Script definition example:</p>
+<pre><code>{
+    &quot;scripts&quot;: {
+        &quot;post-update-cmd&quot;: &quot;MyVendor\\MyClass::postUpdate&quot;,
+        &quot;post-package-install&quot;: [
+            &quot;MyVendor\\MyClass::postPackageInstall&quot;
+        ],
+        &quot;post-install-cmd&quot;: [
+            &quot;MyVendor\\MyClass::warmCache&quot;,
+            &quot;phpunit -c app/&quot;
+        ]
+    }
+}</code></pre>
+<p>Using the previous definition example, here&#39;s the class <code>MyVendor\MyClass</code>
+that might be used to execute the PHP callbacks:</p>
+<pre><code>&lt;?php
+
+namespace MyVendor;
+
+use Composer\Script\Event;
+
+class MyClass
+{
+    public static function postUpdate(Event $event)
+    {
+        $composer = $event-&gt;getComposer();
+        // do stuff
+    }
+
+    public static function postPackageInstall(Event $event)
+    {
+        $installedPackage = $event-&gt;getOperation()-&gt;getPackage();
+        // do stuff
+    }
+
+    public static function warmCache(Event $event)
+    {
+        // make cache toasty
+    }
+}</code></pre>
+<p>When an event is fired, Composer&#39;s internal event handler receives a
+<code>Composer\Script\Event</code> object, which is passed as the first argument to your
+PHP callback. This <code>Event</code> object has getters for other contextual objects:</p>
+<ul>
+<li><code>getComposer()</code>: returns the current instance of <code>Composer\Composer</code></li>
+<li><code>getName()</code>: returns the name of the event being fired as a string</li>
+<li><code>getIO()</code>: returns the current input/output stream which implements
+<code>Composer\IO\IOInterface</code> for writing to the console</li>
+</ul>
+
+                 <p class="fork-and-edit">
+                    誤字を見つけましたか？ 何か間違いがありますか？ <a href="http://github.com/composer/composer/">forkして編集してください</a>！
+                    <!--
+                    Found a typo? Something is wrong in this documentation? Just <a href="http://github.com/composer/composer/edit/master/doc/{{ file }}">fork and edit</a> it!
+                    -->
+                </p>
+            </div>
+            <footer>
+                <p class="license">Composer and all content on this site are released under the <a href="https://github.com/composer/composer/blob/master/LICENSE">MIT license</a>.</p>
+            </footer>
+        </div>
+    </body>
+</html>

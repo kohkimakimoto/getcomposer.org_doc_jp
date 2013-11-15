@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Composer</title>
+        <meta name="description" content="Dependency Management for PHP">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="stylesheet" href="/css/styles.min.css">
+        <script>
+            if (location.host == "192.168.56.21:12345") {
+                // It's my local development environment host.
+                document.write(
+                    '<script src="http://' + 
+                    (location.host || 'localhost').split(':')[0] + 
+                    ':35729/livereload.js?snipver=1"></' + 
+                    'script>'
+                )
+            }
+        </script>
+    </head>
+    <body>
+        <div id="container">
+            <header>
+            </header>
+            <div id="main" role="main">
+                <!--
+    tagline: Modify and extend Composer's functionality
+-->
+
+<h1 id="setting-up-and-using-plugins">Setting up and using plugins</h1>
+<h2 id="synopsis">Synopsis</h2>
+<p>You may wish to alter or expand Composer&#39;s functionality with your own. For
+example if your environment poses special requirements on the behaviour of
+Composer which do not apply to the majority of its users or if you wish to
+accomplish something with composer in a way that is not desired by most users.</p>
+<p>In these cases you could consider creating a plugin to handle your
+specific logic.</p>
+<h2 id="creating-a-plugin">Creating a Plugin</h2>
+<p>A plugin is a regular composer package which ships its code as part of the
+package and may also depend on further packages.</p>
+<h3 id="plugin-package">Plugin Package</h3>
+<p>The package file is the same as any other package file but with the following
+requirements:</p>
+<ol>
+<li>the <a href="../04-schema.md#type">type</a> attribute must be <code>composer-plugin</code>.</li>
+<li>the <a href="../04-schema.md#extra">extra</a> attribute must contain an element <code>class</code> defining the
+class name of the plugin (including namespace). If a package contains
+multiple plugins this can be array of class names.</li>
+</ol>
+<p>Additionally you must require the special package called <code>composer-plugin-api</code>
+to define which composer API versions your plugin is compatible with. The
+current composer plugin API version is 1.0.0.</p>
+<p>For example</p>
+<pre><code>{
+    &quot;name&quot;: &quot;my/plugin-package&quot;,
+    &quot;type&quot;: &quot;composer-plugin&quot;,
+    &quot;require&quot;: {
+        &quot;composer-plugin-api&quot;: &quot;1.0.0&quot;
+    }
+}</code></pre>
+<h3 id="plugin-class">Plugin Class</h3>
+<p>Every plugin has to supply a class which implements the
+<a href="https://github.com/composer/composer/blob/master/src/Composer/Plugin/PluginInterface.php"><code>Composer\Plugin\PluginInterface</code></a>. The <code>activate()</code> method of the plugin
+is called after the plugin is loaded and receives an instance of
+<a href="https://github.com/composer/composer/blob/master/src/Composer/Composer.php"><code>Composer\Composer</code></a> as well as an instance of
+<a href="https://github.com/composer/composer/blob/master/src/Composer/IO/IOInterface.php"><code>Composer\IO\IOInterface</code></a>. Using these two objects all configuration can
+be read and all internal objects and state can be manipulated as desired.</p>
+<p>Example:</p>
+<pre><code>namespace phpDocumentor\Composer;
+
+use Composer\Composer;
+use Composer\IO\IOInterface;
+use Composer\Plugin\PluginInterface;
+
+class TemplateInstallerPlugin implements PluginInterface
+{
+    public function activate(Composer $composer, IOInterface $io)
+    {
+        $installer = new TemplateInstaller($io, $composer);
+        $composer-&gt;getInstallationManager()-&gt;addInstaller($installer);
+    }
+}</code></pre>
+<h2 id="event-handler">Event Handler</h2>
+<p>Furthermore plugins may implement the
+<a href="https://github.com/composer/composer/blob/master/src/Composer/EventDispatcher/EventSubscriberInterface.php"><code>Composer\EventDispatcher\EventSubscriberInterface</code></a> in order to have its
+event handlers automatically registered with the <code>EventDispatcher</code> when the
+plugin is loaded.</p>
+<p>The events available for plugins are:</p>
+<ul>
+<li><strong>COMMAND</strong>, is called at the beginning of all commands that load plugins.
+It provides you with access to the input and output objects of the program.</li>
+<li><strong>PRE_FILE_DOWNLOAD</strong>, is triggered before files are downloaded and allows
+you to manipulate the <code>RemoteFilesystem</code> object prior to downloading files
+based on the URL to be downloaded.</li>
+</ul>
+<p>Example:</p>
+<pre><code>namespace Naderman\Composer\AWS;
+
+use Composer\Composer;
+use Composer\EventDispatcher\EventSubscriberInterface;
+use Composer\IO\IOInterface;
+use Composer\Plugin\PluginInterface;
+use Composer\Plugin\PluginEvents;
+use Composer\Plugin\PreFileDownloadEvent;
+
+class AwsPlugin implements PluginInterface, EventSubscriberInterface
+{
+    protected $composer;
+    protected $io;
+
+    public function activate(Composer $composer, IOInterface $io)
+    {
+        $this-&gt;composer = $composer;
+        $this-&gt;io = $io;
+    }
+
+    public static function getSubscribedEvents()
+    {
+        return array(
+            PluginEvents::PRE_FILE_DOWNLOAD =&gt; array(
+                array(&#39;onPreFileDownload&#39;, 0)
+            ),
+        );
+    }
+
+    public function onPreFileDownload(PreFileDownloadEvent $event)
+    {
+        $protocol = parse_url($event-&gt;getProcessedUrl(), PHP_URL_SCHEME);
+
+        if ($protocol === &#39;s3&#39;) {
+            $awsClient = new AwsClient($this-&gt;io, $this-&gt;composer-&gt;getConfig());
+            $s3RemoteFilesystem = new S3RemoteFilesystem($this-&gt;io, $event-&gt;getRemoteFilesystem()-&gt;getOptions(), $awsClient);
+            $event-&gt;setRemoteFilesystem($s3RemoteFilesystem);
+        }
+    }
+}</code></pre>
+<h2 id="using-plugins">Using Plugins</h2>
+<p>Plugin packages are automatically loaded as soon as they are installed and will
+be loaded when composer starts up if they are found in the current project&#39;s
+list of installed packages. Additionally all plugin packages installed in the
+<code>COMPOSER_HOME</code> directory using the composer global command are loaded before
+local project plugins are loaded.</p>
+<blockquote>
+<p>You may pass the <code>--no-plugins</code> option to composer commands to disable all
+installed commands. This may be particularly helpful if any of the plugins
+causes errors and you wish to update or uninstall it.</p>
+</blockquote>
+
+                 <p class="fork-and-edit">
+                    誤字を見つけましたか？ 何か間違いがありますか？ <a href="http://github.com/composer/composer/">forkして編集してください</a>！
+                    <!--
+                    Found a typo? Something is wrong in this documentation? Just <a href="http://github.com/composer/composer/edit/master/doc/{{ file }}">fork and edit</a> it!
+                    -->
+                </p>
+            </div>
+            <footer>
+                <p class="license">Composer and all content on this site are released under the <a href="https://github.com/composer/composer/blob/master/LICENSE">MIT license</a>.</p>
+            </footer>
+        </div>
+    </body>
+</html>

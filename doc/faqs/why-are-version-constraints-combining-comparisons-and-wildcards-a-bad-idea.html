@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Composer</title>
+        <meta name="description" content="Dependency Management for PHP">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="stylesheet" href="/css/styles.min.css">
+        <script>
+            if (location.host == "192.168.56.21:12345") {
+                // It's my local development environment host.
+                document.write(
+                    '<script src="http://' + 
+                    (location.host || 'localhost').split(':')[0] + 
+                    ':35729/livereload.js?snipver=1"></' + 
+                    'script>'
+                )
+            }
+        </script>
+    </head>
+    <body>
+        <div id="container">
+            <header>
+            </header>
+            <div id="main" role="main">
+                <h1 id="why-are-version-constraints-combining-comparisons-and-wildcards-a-bad-idea-">Why are version constraints combining comparisons and wildcards a bad idea?</h1>
+<p>This is a fairly common mistake people make, defining version constraints in
+their package requires like <code>&gt;=2.*</code> or <code>&gt;=1.1.*</code>.</p>
+<p>If you think about it and what it really means though, you will quickly
+realize that it does not make much sense. If we decompose <code>&gt;=2.*</code>, you
+have two parts:</p>
+<ul>
+<li><code>&gt;=2</code> which says the package should be in version 2.0.0 or above.</li>
+<li><code>2.*</code> which says the package should be between version 2.0.0 (inclusive)
+and 3.0.0 (exclusive).</li>
+</ul>
+<p>As you see, both rules agree on the fact that the package must be &gt;=2.0.0,
+but it is not possible to determine if when you wrote that you were thinking
+of a package in version 3.0.0 or not. Should it match because you asked for
+<code>&gt;=2</code> or should it not match because you asked for a <code>2.*</code>?</p>
+<p>For this reason, Composer just throws an error and says that this is invalid.
+The easy way to fix it is to think about what you really mean, and use only
+one of those rules.</p>
+
+                 <p class="fork-and-edit">
+                    誤字を見つけましたか？ 何か間違いがありますか？ <a href="http://github.com/composer/composer/">forkして編集してください</a>！
+                    <!--
+                    Found a typo? Something is wrong in this documentation? Just <a href="http://github.com/composer/composer/edit/master/doc/{{ file }}">fork and edit</a> it!
+                    -->
+                </p>
+            </div>
+            <footer>
+                <p class="license">Composer and all content on this site are released under the <a href="https://github.com/composer/composer/blob/master/LICENSE">MIT license</a>.</p>
+            </footer>
+        </div>
+    </body>
+</html>

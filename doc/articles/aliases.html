@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Composer</title>
+        <meta name="description" content="Dependency Management for PHP">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="stylesheet" href="/css/styles.min.css">
+        <script>
+            if (location.host == "192.168.56.21:12345") {
+                // It's my local development environment host.
+                document.write(
+                    '<script src="http://' + 
+                    (location.host || 'localhost').split(':')[0] + 
+                    ':35729/livereload.js?snipver=1"></' + 
+                    'script>'
+                )
+            }
+        </script>
+    </head>
+    <body>
+        <div id="container">
+            <header>
+            </header>
+            <div id="main" role="main">
+                <!--
+    tagline: Alias branch names to versions
+-->
+
+<h1 id="aliases">Aliases</h1>
+<h2 id="why-aliases-">Why aliases?</h2>
+<p>When you are using a VCS repository, you will only get comparable versions for
+branches that look like versions, such as <code>2.0</code>. For your <code>master</code> branch, you
+will get a <code>dev-master</code> version. For your <code>bugfix</code> branch, you will get a
+<code>dev-bugfix</code> version.</p>
+<p>If your <code>master</code> branch is used to tag releases of the <code>1.0</code> development line,
+i.e. <code>1.0.1</code>, <code>1.0.2</code>, <code>1.0.3</code>, etc., any package depending on it will
+probably require version <code>1.0.*</code>.</p>
+<p>If anyone wants to require the latest <code>dev-master</code>, they have a problem: Other
+packages may require <code>1.0.*</code>, so requiring that dev version will lead to
+conflicts, since <code>dev-master</code> does not match the <code>1.0.*</code> constraint.</p>
+<p>Enter aliases.</p>
+<h2 id="branch-alias">Branch alias</h2>
+<p>The <code>dev-master</code> branch is one in your main VCS repo. It is rather common that
+someone will want the latest master dev version. Thus, Composer allows you to
+alias your <code>dev-master</code> branch to a <code>1.0.x-dev</code> version. It is done by
+specifying a <code>branch-alias</code> field under <code>extra</code> in <code>composer.json</code>:</p>
+<pre><code>{
+    &quot;extra&quot;: {
+        &quot;branch-alias&quot;: {
+            &quot;dev-master&quot;: &quot;1.0.x-dev&quot;
+        }
+    }
+}</code></pre>
+<p>The branch version must begin with <code>dev-</code> (non-comparable version), the alias
+must be a comparable dev version (i.e. start with numbers, and end with
+<code>.x-dev</code>). The <code>branch-alias</code> must be present on the branch that it references.
+For <code>dev-master</code>, you need to commit it on the <code>master</code> branch.</p>
+<p>As a result, anyone can now require <code>1.0.*</code> and it will happily install
+<code>dev-master</code>.</p>
+<p>In order to use branch aliasing, you must own the repository of the package
+being aliased. If you want to alias a third party package without maintaining
+a fork of it, use inline aliases as described below.</p>
+<h2 id="require-inline-alias">Require inline alias</h2>
+<p>Branch aliases are great for aliasing main development lines. But in order to
+use them you need to have control over the source repository, and you need to
+commit changes to version control.</p>
+<p>This is not really fun when you just want to try a bugfix of some library that
+is a dependency of your local project.</p>
+<p>For this reason, you can alias packages in your <code>require</code> and <code>require-dev</code>
+fields. Let&#39;s say you found a bug in the <code>monolog/monolog</code> package. You cloned
+<a href="https://github.com/Seldaek/monolog">Monolog</a> on GitHub and fixed the issue in 
+a branch named <code>bugfix</code>. Now you want to install that version of monolog in your 
+local project.</p>
+<p>You are using <code>symfony/monolog-bundle</code> which requires <code>monolog/monolog</code> version
+<code>1.*</code>. So you need your <code>dev-bugfix</code> to match that constraint.
+
+Just add this to your project&#39;s root <code>composer.json</code>:</p>
+<pre><code>{
+    &quot;repositories&quot;: [
+        {
+            &quot;type&quot;: &quot;vcs&quot;,
+            &quot;url&quot;: &quot;https://github.com/you/monolog&quot;
+        }
+    ],
+    &quot;require&quot;: {
+        &quot;symfony/monolog-bundle&quot;: &quot;2.0&quot;,
+        &quot;monolog/monolog&quot;: &quot;dev-bugfix as 1.0.x-dev&quot;
+    }
+}</code></pre>
+<p>That will fetch the <code>dev-bugfix</code> version of <code>monolog/monolog</code> from your GitHub
+and alias it to <code>1.0.x-dev</code>.</p>
+<blockquote>
+<p><strong>Note:</strong> If a package with inline aliases is required, the alias (right of
+the <code>as</code>) is used as the version constraint. The part left of the <code>as</code> is
+discarded. As a consequence, if A requires B and B requires <code>monolog/monolog</code>
+version <code>dev-bugfix as 1.0.x-dev</code>, installing A will make B require
+<code>1.0.x-dev</code>, which may exist as a branch alias or an actual <code>1.0</code> branch. If
+it does not, it must be re-inline-aliased in A&#39;s <code>composer.json</code>.</p>
+<p><strong>Note:</strong> Inline aliasing should be avoided, especially for published
+packages. If you found a bug, try and get your fix merged upstream. This
+helps to avoid issues for users of your package.</p>
+</blockquote>
+
+                 <p class="fork-and-edit">
+                    誤字を見つけましたか？ 何か間違いがありますか？ <a href="http://github.com/composer/composer/">forkして編集してください</a>！
+                    <!--
+                    Found a typo? Something is wrong in this documentation? Just <a href="http://github.com/composer/composer/edit/master/doc/{{ file }}">fork and edit</a> it!
+                    -->
+                </p>
+            </div>
+            <footer>
+                <p class="license">Composer and all content on this site are released under the <a href="https://github.com/composer/composer/blob/master/LICENSE">MIT license</a>.</p>
+            </footer>
+        </div>
+    </body>
+</html>

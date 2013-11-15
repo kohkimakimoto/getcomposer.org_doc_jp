@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Composer</title>
+        <meta name="description" content="Dependency Management for PHP">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="stylesheet" href="/css/styles.min.css">
+        <script>
+            if (location.host == "192.168.56.21:12345") {
+                // It's my local development environment host.
+                document.write(
+                    '<script src="http://' + 
+                    (location.host || 'localhost').split(':')[0] + 
+                    ':35729/livereload.js?snipver=1"></' + 
+                    'script>'
+                )
+            }
+        </script>
+    </head>
+    <body>
+        <div id="container">
+            <header>
+            </header>
+            <div id="main" role="main">
+                <h1 id="how-do-i-install-a-package-to-a-custom-path-for-my-framework-">How do I install a package to a custom path for my framework?</h1>
+<p>Each framework may have one or many different required package installation
+paths. Composer can be configured to install packages to a folder other than
+the default <code>vendor</code> folder by using
+<a href="https://github.com/composer/installers">composer/installers</a>.</p>
+<p>If you are a <strong>package author</strong> and want your package installed to a custom
+directory, simply require <code>composer/installers</code> and set the appropriate <code>type</code>.
+This is common if your package is intended for a specific framework such as
+CakePHP, Drupal or WordPress. Here is an example composer.json file for a
+WordPress theme:</p>
+<pre><code>{
+    &quot;name&quot;: &quot;you/themename&quot;,
+    &quot;type&quot;: &quot;wordpress-theme&quot;,
+    &quot;require&quot;: {
+        &quot;composer/installers&quot;: &quot;~1.0&quot;
+    }
+}</code></pre>
+<p>Now when your theme is installed with Composer it will be placed into
+<code>wp-content/themes/themename/</code> folder. Check the
+<a href="https://github.com/composer/installers#current-supported-types">current supported types</a>
+for your package.</p>
+<p>As a <strong>package consumer</strong> you can set or override the install path for a package
+that requires composer/installers by configuring the <code>installer-paths</code> extra. A
+useful example would be for a Drupal multisite setup where the package should be
+installed into your sites subdirectory. Here we are overriding the install path
+for a module that uses composer/installers:</p>
+<pre><code>{
+    &quot;extra&quot;: {
+        &quot;installer-paths&quot;: {
+            &quot;sites/example.com/modules/{$name}&quot;: [&quot;vendor/package&quot;]
+        }
+    }
+}</code></pre>
+<p>Now the package would be installed to your folder location, rather than the default
+composer/installers determined location.</p>
+<blockquote>
+<p><strong>Note:</strong> You cannot use this to change the path of any package. This is only
+applicable to packages that require <code>composer/installers</code> and use a custom type
+that it handles.</p>
+</blockquote>
+
+                 <p class="fork-and-edit">
+                    誤字を見つけましたか？ 何か間違いがありますか？ <a href="http://github.com/composer/composer/">forkして編集してください</a>！
+                    <!--
+                    Found a typo? Something is wrong in this documentation? Just <a href="http://github.com/composer/composer/edit/master/doc/{{ file }}">fork and edit</a> it!
+                    -->
+                </p>
+            </div>
+            <footer>
+                <p class="license">Composer and all content on this site are released under the <a href="https://github.com/composer/composer/blob/master/LICENSE">MIT license</a>.</p>
+            </footer>
+        </div>
+    </body>
+</html>

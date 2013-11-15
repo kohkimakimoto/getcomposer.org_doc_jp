@@ -16,7 +16,7 @@ after_success:
   - cd dest
   - git add -A
   - git commit -m 'Update'
-  - '[ "$TRAVIS_BRANCH" == "master" ] && [ $GH_TOKEN ] && git push --quiet https://$GH_TOKEN@github.com/kohkimakimoto/getcomposer.org_doc_jp.git gh-pages'
+  - '[ "$TRAVIS_BRANCH" == "master" ] && [ $GH_TOKEN ] && git push https://$GH_TOKEN@github.com/kohkimakimoto/getcomposer.org_doc_jp.git gh-pages'
 env:
   global:
     - GIT_COMMITTER_NAME="Kohki Makimoto"

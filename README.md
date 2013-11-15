@@ -1,4 +1,0 @@
-# getcomposer.org_doc_jp
-
-???(ﾟ∀ﾟ )???
-

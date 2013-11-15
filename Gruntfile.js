@@ -1,18 +1,22 @@
+var fs = require('fs');
+
 module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
+    clean: ["dest/*"],
+
     cssmin: {
       dist: {
         src: ["src/css/style.css"],
-        dest: "dest/css/styles.min.css"
+        dest: "dest/getcomposer.org_doc_jp/css/styles.min.css"
       }
     },
 
     copy: {
       dist: {
         files: [
-          { expand: true, cwd: "src/", src: ['index.html', "doc/index.html", 'favicon.ico', 'img/*'], dest: 'dest/', filter: 'isFile'},
+          { expand: true, cwd: "src/", src: ['index.html', "doc/index.html", 'favicon.ico', 'img/*'], dest: 'dest/getcomposer.org_doc_jp/', filter: 'isFile'},
         ]
       }
     },
@@ -20,7 +24,7 @@ module.exports = function(grunt) {
     markdown: {
       dist: {
         files: [
-          {expand: true, cwd: "src/", src: ["doc/**/*.md"], dest: "dest/", ext: ".html", filter: 'isFile'}
+          {expand: true, cwd: "src/", src: ["doc/**/*.md"], dest: "dest/getcomposer.org_doc_jp/", ext: ".html", filter: 'isFile'}
         ],
         options: {
           template: "src/templates/layout.html",
@@ -66,10 +70,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-contrib-connect");
   grunt.loadNpmTasks("grunt-contrib-cssmin");
   grunt.loadNpmTasks("grunt-contrib-copy");
+  grunt.loadNpmTasks("grunt-contrib-clean");
+
   grunt.loadNpmTasks("grunt-markdown");
 
   // Register custom tasks.
-  grunt.registerTask("build", ["markdown", "cssmin", "copy"]);
+  grunt.registerTask("build", ["clean", "markdown", "cssmin", "copy"]);
   grunt.registerTask("default", ["connect","watch"]);
   
 

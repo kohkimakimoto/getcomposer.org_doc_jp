@@ -10,6 +10,7 @@
     "grunt-contrib-sass": "~0.5.0",
     "grunt-contrib-jade": "~0.8.0",
     "grunt-markdown": "~0.4.0",
-    "grunt-contrib-copy": "~0.4.1"
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-clean": "~0.5.0"
   }
 }

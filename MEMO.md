@@ -24,7 +24,7 @@ gruntとプラグインをインストール
     $ npm install --save-dev grunt-contrib-sass
     $ npm install --save-dev grunt-contrib-cssmin
     $ npm install --save-dev grunt-contrib-copy
-    $ 
+    $ npm install --save-dev grunt-contrib-clean
     $ npm install --save-dev grunt-markdown
     
 

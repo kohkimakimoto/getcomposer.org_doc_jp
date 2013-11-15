@@ -6,8 +6,3 @@
 
 これは[http://getcomposer.org/doc/](http://getcomposer.org/doc/)の日本語訳です。
 
-##　編集環境のセットアップ
-
-    $ npm install
-    $ grunt 
-

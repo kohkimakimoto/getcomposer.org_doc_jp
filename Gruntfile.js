@@ -4,7 +4,7 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    clean: ["dest/*"],
+    clean: ["dest/getcomposer.org_doc_jp/*"],
 
     cssmin: {
       dist: {

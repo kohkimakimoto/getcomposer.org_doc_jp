@@ -5,7 +5,7 @@ before_script:
   - npm install -g grunt-cli
   - npm install 
   - git clone --quiet https://github.com/kohkimakimoto/getcomposer.org_doc_jp.git dest
-  - pushd dest
+  - pushd dest/getcomposer.org_doc_jp
   - git checkout gh-pages
   - popd
 
@@ -13,7 +13,7 @@ script:
   - grunt build
 
 after_success:
-  - cd dest
+  - cd dest/getcomposer.org_doc_jp
   - git add -A
   - git commit -m 'Update'
   - '[ "$TRAVIS_BRANCH" == "master" ] && [ $GH_TOKEN ] && git push --quiet https://$GH_TOKEN@github.com/kohkimakimoto/getcomposer.org_doc_jp.git gh-pages'

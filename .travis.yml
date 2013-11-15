@@ -1,0 +1,26 @@
+language: node_js
+node_js:
+  - "0.10"
+before_script:
+  - npm install -g grunt-cli
+  - npm install 
+  - git clone --quiet https://github.com/kohkimakimoto/getcomposer.org_doc_jp.git dest
+  - pushd dest
+  - git checkout gh-pages
+  - popd
+
+script:
+  - grunt build
+
+after_success:
+  - cd dest
+  - git add -A
+  - git commit -m 'Update'
+  - '[ "$TRAVIS_BRANCH" == "master" ] && [ $GH_TOKEN ] && git push --quiet https://$GH_TOKEN@github.com/kohkimakimoto/getcomposer.org_doc_jp.git gh-pages'
+env:
+  global:
+    - GIT_COMMITTER_NAME="Kohki Makimoto"
+    - GIT_COMMITTER_EMAIL="kohki.makimoto@gmail.com"
+    - GIT_AUTHOR_NAME="Kohki Makimoto"
+    - GIT_AUTHOR_EMAIL="kohki.makimoto@gmail.com"
+    - secure: "Dbr4uBfPxdTWWB0F/rivGxABdRtRfoJPmZzTqQXGP/Rdp83+o2ljcYbaluhQ+wybkTbtfLA9R77yOZRXv/pJt6vJ8O/ai8wpeqdA5AsaoZTN+Svi/r3QPKsASFK/efL1SAPdW+7Fc1fuVPqQ+gTAQLKERXVHeF+Z4v92eNyvyuo="

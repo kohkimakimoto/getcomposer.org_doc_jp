@@ -5,7 +5,12 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     clean: ["dest/getcomposer.org_doc_jp/*"],
-
+    uglify: {
+      dist: {
+        src: ['src/js/modernizr-2.0.6.min.js'],
+        dest: "dest/getcomposer.org_doc_jp/js/scripts.min.js"
+      }
+    },
     cssmin: {
       dist: {
         src: ["src/css/style.css"],
@@ -16,8 +21,7 @@ module.exports = function(grunt) {
     copy: {
       dist: {
         files: [
-          { expand: true, cwd: "src/", src: ['index.html', "doc/index.html", 'favicon.ico', 'img/*'], dest: 'dest/getcomposer.org_doc_jp/', filter: 'isFile'},
-          { expand: true, cwd: "src/", src: ['index.html'], dest: 'dest/', filter: 'isFile'}
+          { expand: true, cwd: "src/", src: ['index.html', "doc/index.html", 'favicon.ico', 'img/*'], dest: 'dest/getcomposer.org_doc_jp/', filter: 'isFile'}
         ]
       }
     },
@@ -50,6 +54,10 @@ module.exports = function(grunt) {
       options: {
         livereload: true
       },
+      uglify: {
+        files: "<%= uglify.dist.src $>",
+        tasks: "uglify:dist"
+      },
       cssmin: {
         files: "<%= cssmin.dist.src $>",
         tasks: "cssmin:dist"
@@ -72,12 +80,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-contrib-cssmin");
   grunt.loadNpmTasks("grunt-contrib-copy");
   grunt.loadNpmTasks("grunt-contrib-clean");
-
+  grunt.loadNpmTasks("grunt-contrib-uglify");
   grunt.loadNpmTasks("grunt-markdown");
 
   // Register custom tasks.
-  grunt.registerTask("build", ["clean", "markdown", "cssmin", "copy"]);
-  grunt.registerTask("default", ["connect","watch"]);
+  grunt.registerTask("build", ["clean", "uglify", "markdown", "cssmin", "copy"]);
+  grunt.registerTask("default", ["build", "connect", "watch"]);
   
 
 }

@@ -31,4 +31,7 @@ for users and [#composer-dev](irc://irc.freenode.org/composer-dev) for developme
 Stack Overflow has a growing collection of
 [Composer related questions](http://stackoverflow.com/questions/tagged/composer-php).
 
-&larr; [Repositories](05-repositories.md)
+<p class="prev-next">
+  &larr; [リポジトリ](05-repositories.html)
+</p>
+

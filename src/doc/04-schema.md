@@ -730,4 +730,8 @@ The example will include `/dir/foo/bar/file`, `/foo/bar/baz`, `/file.php`,
 
 Optional.
 
-&larr; [Command-line interface](03-cli.md)  |  [Repositories](05-repositories.md) &rarr;
+<p class="prev-next">
+  &larr; [コマンドラインインターフェース](03-cli.html)  |  [リポジトリ](05-repositories.html) &rarr;
+</p>
+
+

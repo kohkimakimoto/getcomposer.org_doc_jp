@@ -192,4 +192,10 @@ You simply hit the big "Submit Package" button and sign up. Then you submit
 the URL to your VCS repository, at which point packagist will start crawling
 it. Once it is done, your package will be available to anyone.
 
+<p class="prev-next">
+  &larr; [基本的な使い方](01-basic-usage.md) |  [コマンドラインインターフェース](03-cli.html) &rarr;
+</p>
+
+<!--
 &larr; [Basic usage](01-basic-usage.md) |  [Command-line interface](03-cli.md) &rarr;
+-->

@@ -545,5 +545,9 @@ You can disable the default Packagist repository by adding this to your
         ]
     }
 
+<p class="prev-next">
+  &larr; [スキーマ](04-schema.html)  |  [コミュニティ](06-community.html) &rarr;
+</p>
 
-&larr; [Schema](04-schema.md)  |  [Community](06-community.md) &rarr;
+
+

@@ -287,4 +287,10 @@ classes to be autoloaded even if they do not conform to PSR-0. See the
 that one, you can just include `vendor/composer/autoload_namespaces.php`,
 which returns an associative array mapping namespaces to directories.
 
+<p class="prev-next">
+  &larr; [イントロダクション](00-intro.html)  |  [ライブラリ](02-libraries.html) &rarr;
+</p>
+
+<!--
 &larr; [Intro](00-intro.md)  |  [Libraries](02-libraries.md) &rarr;
+-->

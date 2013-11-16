@@ -509,4 +509,10 @@ This env var controls the discard-changes [config option](04-schema.md#config).
 If set to 1, this env var will make composer behave as if you passed the
 `--no-interaction` flag to every command. This can be set on build boxes/CI.
 
+<p class="prev-next">
+  &larr; [ライブラリ](02-libraries.html)  |  [スキーマ](04-schema.html) &rarr;
+</p>
+
+<!--
 &larr; [Libraries](02-libraries.md)  |  [Schema](04-schema.md) &rarr;
+-->

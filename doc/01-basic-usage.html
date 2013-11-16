@@ -8,8 +8,8 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <link rel="stylesheet" href="/getcomposer.org_doc_jp/css/styles.min.css">
         <script>
-            if (location.host == "192.168.56.21:12345") {
-                // It's my local development environment host.
+            if (location.host.indexOf(":12345") >= 0) {
+                // It's my local developing server port.
                 document.write(
                     '<script src="http://' + 
                     (location.host || 'localhost').split(':')[0] + 
@@ -37,20 +37,45 @@ To install Composer, you just need to download the `composer.phar` executable.
 For the details, see the [Introduction](00-intro.md) chapter.
 -->
 
-<p>To check if Composer is working, just run the PHAR through <code>php</code>:</p>
+<p>Composerが動作するかチェックするために、<code>php</code>でPHARを実行してください。</p>
+<!--
+To check if Composer is working, just run the PHAR through `php`:
+-->
+
 <pre><code>$ php composer.phar</code></pre>
-<p>This should give you a list of available commands.</p>
+<p>利用できるコマンドの一覧が表示されるでしょう。</p>
+<!--
+This should give you a list of available commands.
+-->
+
 <blockquote>
-<p><strong>Note:</strong> You can also perform the checks only without downloading Composer
-by using the <code>--check</code> option. For more information, just use <code>--help</code>.</p>
+<p><strong>注意:</strong> <code>--check</code>オプションを使えばComposerをダウンロードせずに、チェックだけを行うこともできます。
+より詳しい情報は<code>--help</code>オプションを使ってみてください。</p>
 <pre><code>$ curl -sS https://getcomposer.org/installer | php -- --help</code></pre>
 </blockquote>
-<h2 id="-composer-json-project-setup"><code>composer.json</code>: Project Setup</h2>
-<p>To start using Composer in your project, all you need is a <code>composer.json</code>
+<!--
+> **Note:** You can also perform the checks only without downloading Composer
+> by using the `--check` option. For more information, just use `--help`.
+>
+>     $ curl -sS https://getcomposer.org/installer | php -- --help
+-->
+
+<h2 id="-composer-json-project-setup-"><code>composer.json</code>: Project Setup - プロジェクトのセットアップ</h2>
+<p>Composerをあなたのプロジェクトで利用するのに必要となるものは<code>composer.json</code>ファイルだけです。
+このファイルにはプロジェクトの依存情報が記述されます。そしてその他のメタデータも含まれるかもしれません。</p>
+<!--
+To start using Composer in your project, all you need is a `composer.json`
 file. This file describes the dependencies of your project and may contain
-other metadata as well.</p>
-<p>The <a href="http://json.org/">JSON format</a> is quite easy to write. It allows you to
-define nested structures.</p>
+other metadata as well.
+-->
+
+<p><a href="http://json.org/">JSONフォーマット</a>は書くのがとても簡単です。
+これはネストした構造を定義することができます。</p>
+<!--
+The [JSON format](http://json.org/) is quite easy to write. It allows you to
+define nested structures.
+-->
+
 <h3 id="the-require-key">The <code>require</code> Key</h3>
 <p>The first (and often only) thing you specify in <code>composer.json</code> is the
 <code>require</code> key. You&#39;re simply telling Composer which packages your project

@@ -8,8 +8,8 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <link rel="stylesheet" href="/getcomposer.org_doc_jp/css/styles.min.css">
         <script>
-            if (location.host == "192.168.56.21:12345") {
-                // It's my local development environment host.
+            if (location.host.indexOf(":12345") >= 0) {
+                // It's my local developing server port.
                 document.write(
                     '<script src="http://' + 
                     (location.host || 'localhost').split(':')[0] + 

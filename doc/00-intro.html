@@ -30,7 +30,7 @@
               </div>
             </header>
             <div id="main" role="main">
-                <h1 id="introduction-">Introduction - イントロダクション</h1>
+                <h1 id="-">イントロダクション</h1>
 <p>ComposerはPHPの依存管理ツールです。
 Composerはあなたのプロジェクトが必要とする依存ライブラリを定義できるようにして、インストールを行います。</p>
 <!--
@@ -39,8 +39,8 @@ the dependent libraries your project needs and it will install them in your
 project for you.
 -->
 
-<h2 id="dependency-management-">Dependency management　- 依存管理</h2>
-<p>Composerはパッケージ管理ではありません。そう、Composerは「複数」のパッケージやライブラリを扱います。
+<h2 id="-">依存管理</h2>
+<p>Composerはパッケージ管理ツールではありません。そう、Composerは「複数」のパッケージやライブラリを扱います。
 Composerはライブラリをプロジェクト単位に管理します。あなたのプロジェクト内のディレクトリ(例: <code>vendor</code>)にライブラリをインストールします。
 デフォルトではグローバルには決してインストールしません。
 したがって、これは依存管理なわけです。</p>
@@ -77,7 +77,7 @@ d) Composer finds out which versions of which packages need to be installed, and
    installs them (meaning it downloads them into your project).
 -->
 
-<h2 id="declaring-dependencies-">Declaring dependencies - 依存関係を定義する</h2>
+<h2 id="-">依存関係を定義する</h2>
 <p>あなたが新しいプロジェクトを作成し、そしてロギングのライブラリを必要としていたとしましょう。
 あなたは<a href="https://github.com/Seldaek/monolog">monolog</a>を使うことに決めました。
 これをあなたのプロジェクトに追加するために、あなたがしなければならないことは、
@@ -100,7 +100,7 @@ We are simply stating that our project requires some `monolog/monolog` package,
 any version beginning with `1.2`.
 -->
 
-<h2 id="system-requirements-">System Requirements - システムの必要条件</h2>
+<h2 id="-">システムの必要条件</h2>
 <p>Composerが動作するためにはPHP 5.3.2以上が必要です。
 また、多少センシティブなPHPの設定とコンパイルフラグも必要です。
 要件を合っていない箇所については、インストーラが警告を出すでしょう。</p>
@@ -123,9 +123,9 @@ Composer is multi-platform and we strive to make it run equally well on Windows,
 Linux and OSX.
 -->
 
-<h2 id="installation-nix-nix-">Installation - <em>nix -</em>nixへインストール</h2>
-<h3 id="downloading-the-composer-executable-composer-">Downloading the Composer Executable - 実行形式のComposerをダウンロード</h3>
-<h4 id="locally-">Locally - ローカルにインストール</h4>
+<h2 id="-nix-">*nixへインストール</h2>
+<h3 id="-composer-">実行形式のComposerをダウンロード</h3>
+<h4 id="-">ローカルにインストール</h4>
 <p>実際にComposerを利用するためには２つのことをしなければなりません。最初のひとつはComposerをインストールすることです。
 （もう一度言います。これはあなたのプロジェクト配下にダウンロードするという意味です）</p>
 <!--
@@ -152,7 +152,7 @@ option and providing a target directory (it can be an absolute or relative path)
 -->
 
 <pre><code>$ curl -sS https://getcomposer.org/installer | php -- --install-dir=bin</code></pre>
-<h4 id="globally-">Globally - グローバルにインストール</h4>
+<h4 id="-">グローバルにインストール</h4>
 <p>このファイルはあなたの好きな場所に置くことができます。<code>PATH</code>の通った場所に置くことで、グローバルにアクセスすることができます。
 unix系のシステムでは実行形式にして<code>php</code>なしで実行することもできます。</p>
 <!--
@@ -181,7 +181,7 @@ again with sudo.
 Then, just run `composer` in order to run Composer instead of `php composer.phar`.
 -->
 
-<h4 id="globally-on-osx-via-homebrew-homebrew-osx-">Globally (on OSX via homebrew) - グローバルにインストール (homebrewでOSXに)</h4>
+<h4 id="-homebrew-osx-">グローバルにインストール (homebrewでOSXに)</h4>
 <p>Composerはhomebrew-phpプロジェクトの一部です。</p>
 <ol>
 <li>もしまだ<code>brew tap josegonzalez/homebrew-php</code>を行っていない場合、homebrew-phpリポジトリをあなたのbrewにTapしてください。</li>
@@ -204,8 +204,8 @@ Composer is part of the homebrew-php project.
 > `brew install php53-intl`
 -->
 
-<h2 id="installation-windows-windows-">Installation - Windows - Windowsへインストール</h2>
-<h3 id="using-the-installer-">Using the Installer - インストーラを使う</h3>
+<h2 id="windows-">Windowsへインストール</h2>
+<h3 id="-">インストーラを使う</h3>
 <p>これはComposerをあなたのマシンにセットアップする最も簡単な方法です。</p>
 <!--
 This is the easiest way to get Composer set up on your machine.
@@ -219,7 +219,7 @@ it will install the latest Composer version and set up your PATH so that you can
 just call `composer` from any directory in your command line.
 -->
 
-<h3 id="manual-installation-">Manual Installation - 手動でインストール</h3>
+<h3 id="-">手動でインストール</h3>
 <p><code>PATH</code>の通っているディレクトリに移動してcomposer.pharをダウンロードするため以下のインストールスニペットを実行してください。</p>
 <!--
 Change to a directory on your `PATH` and run the install snippet to download
@@ -250,7 +250,7 @@ Close your current terminal. Test usage with a new terminal:
 Composer version 27d8904
 
 C:\Users\username&gt;</code></pre>
-<h2 id="using-composer-composer-">Using Composer - Composerを使う</h2>
+<h2 id="composer-">Composerを使う</h2>
 <p>プロジェクトの依存物をインストールするためにComposerを使いましょう。
 もしカレントディレクトリに<code>composer.json</code>ファイルがない場合は
 <a href="01-basic-usage.html">基本的な使い方</a>の章へ跳んでください。</p>
@@ -273,13 +273,13 @@ run this instead:
 -->
 
 <pre><code>$ composer install</code></pre>
-<p><a href="#declaring-dependencies-">前述の例</a>では、monologを<code>vendor/monolog/monolog</code>にダウンロードします。</p>
+<p>前述の例では、monologを<code>vendor/monolog/monolog</code>にダウンロードします。</p>
 <!--
 Following the [example above](#declaring-dependencies), this will download
 monolog into the `vendor/monolog/monolog` directory.
 -->
 
-<h2 id="autoloading-">Autoloading - オートローディング</h2>
+<h2 id="-">オートローディング</h2>
 <p>ライブラリのダウンロードだけでなく、Composerはオートロードファイルを用意します。
 このファイルはダウンロードしたライブラリ内のすべてのクラスのオートローディングをおこないます。
 これを使うためには、以下の一行をコードの起動プロセスに追加してください。</p>

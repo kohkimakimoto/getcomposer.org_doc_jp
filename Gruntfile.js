@@ -13,7 +13,7 @@ module.exports = function(grunt) {
     },
     cssmin: {
       dist: {
-        src: ["src/css/style.css"],
+        src: ["src/css/style.css", "src/css/custom.css"],
         dest: "dest/getcomposer.org_doc_jp/css/styles.min.css"
       }
     },
@@ -55,11 +55,11 @@ module.exports = function(grunt) {
         livereload: true
       },
       uglify: {
-        files: "<%= uglify.dist.src $>",
+        files: "src/js/**/*.js",
         tasks: "uglify:dist"
       },
       cssmin: {
-        files: "<%= cssmin.dist.src $>",
+        files: "src/css/**/*.css",
         tasks: "cssmin:dist"
       },
       copy: {

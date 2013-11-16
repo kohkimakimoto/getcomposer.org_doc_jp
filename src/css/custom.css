@@ -1,0 +1,9 @@
+header .note {
+    font-size: 60%;
+    color: #888888;
+    margin-bottom: -34px;
+}
+
+header a.repo {
+    border: none; 
+}

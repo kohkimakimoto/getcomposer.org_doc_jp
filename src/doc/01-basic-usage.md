@@ -1,6 +1,6 @@
-# Basic usage - 基本的な使い方
+# 基本的な使い方
 
-## Installation - インストール
+## インストール
 
 Composerをインストールするために、`composer.phar`の実行ファイルをダウンロードする必要があります。
 
@@ -42,7 +42,7 @@ This should give you a list of available commands.
 >     $ curl -sS https://getcomposer.org/installer | php -- --help
 -->
 
-## `composer.json`: Project Setup - プロジェクトのセットアップ
+## `composer.json`: プロジェクトのセットアップ
 
 Composerをあなたのプロジェクトで利用するのに必要となるものは`composer.json`ファイルだけです。
 このファイルにはプロジェクトの依存情報が記述されます。そしてその他のメタデータも含まれるかもしれません。
@@ -61,11 +61,16 @@ The [JSON format](http://json.org/) is quite easy to write. It allows you to
 define nested structures.
 -->
 
-### The `require` Key
+### `require`キー
 
+最初に（そして、しばしばただひとつの）あなたが`composer.json`で指定するものは、`require`キーです。
+あなたはComposerにプロジェクトが依存しているパッケージがどれであるかを、単に定義するだけです。
+
+<!--
 The first (and often only) thing you specify in `composer.json` is the
 `require` key. You're simply telling Composer which packages your project
 depends on.
+-->
 
     {
         "require": {
@@ -73,36 +78,72 @@ depends on.
         }
     }
 
+見たとおり、`require`は**パッケージ名** (例:`monolog/monolog`) と **パッケージバージョン** (例:`1.0.*`) で指定されたオブジェクトを扱います。
+
+<!--
 As you can see, `require` takes an object that maps **package names** (e.g. `monolog/monolog`)
 to **package versions** (e.g. `1.0.*`).
+-->
 
-### Package Names
+### パッケージ名
 
+パッケージ名はベンダー名とプロジェクト名から成ります。これらはしばしば同一になります。 - ベンダー名はネーミングが衝突するのを避けるためだけにあります。
+異なった二人の人物が`json`という名前のライブラリ、`igorw/json`と`seldaek/json`を作成できます。
+
+<!--
 The package name consists of a vendor name and the project's name. Often these
 will be identical - the vendor name just exists to prevent naming clashes. It allows
 two different people to create a library named `json`, which would then just be
 named `igorw/json` and `seldaek/json`.
+-->
 
+私たちは`monolog/monolog`を必要としていますね。ベンダー名はプロジェクト名と同じです。
+ベンダー名はプロジェクトにとってユニークな名前であることが推奨されます。
+また関連するプロジェクトを同じネームスペース配下に加えることもできます。
+もしあなたがライブラリをメンテナンスしているのならば、これを小さいパートに分けることは本当に簡単でしょう。
+
+<!--
 Here we are requiring `monolog/monolog`, so the vendor name is the same as the
 project's name. For projects with a unique name this is recommended. It also
 allows adding more related projects under the same namespace later on. If you
 are maintaining a library, this would make it really easy to split it up into
 smaller decoupled parts.
+-->
 
-### Package Versions
+### パッケージバージョン
 
+前述の例で、私たちはmonologのバージョン`1.0.*`を必要としていました。
+これは`1.0`の開発ブランチの全てのバージョンのことです。
+`1.0.0`、`1.0.2`、`1.0.20`全てに当てはまります。
+
+<!--
 In the previous example we were requiring version `1.0.*` of monolog. This
 means any version in the `1.0` development branch. It would match `1.0.0`,
 `1.0.2` or `1.0.20`.
+-->
 
+バージョンの制約はいくつかの方法で指定できます。
+
+<!--
 Version constraints can be specified in a few different ways.
+-->
 
+Name           | Example                                   | Description
+-------------- | ---------------------                     | -----------
+Exact version  | `1.0.2`                                   | You can specify the exact version of a package.
+Range          | `>=1.0` `>=1.0,<2.0` <code>>=1.0,<1.1 &#124; >=1.2</code> | By using comparison operators you can specify ranges of valid versions. Valid operators are `>`, `>=`, `<`, `<=`, `!=`. <br />You can define multiple ranges, separated by a comma, which will be treated as a **logical AND**. A pipe symbol <code>&#124;</code> will be treated as a **logical OR**. <br />AND has higher precedence than OR.
+Wildcard       | `1.0.*`                                   | You can specify a pattern with a `*` wildcard. `1.0.*` is the equivalent of `>=1.0,<1.1`.
+Tilde Operator | `~1.2`                                    | Very useful for projects that follow semantic versioning. `~1.2` is equivalent to `>=1.2,<2.0`. For more details, read the next section below.
+
+
+<!--
 Name           | Example                                   | Description
 -------------- | ---------------------                     | -----------
 Exact version  | `1.0.2`                                   | You can specify the exact version of a package.
 Range          | `>=1.0` `>=1.0,<2.0` `>=1.0,<1.1 | >=1.2` | By using comparison operators you can specify ranges of valid versions. Valid operators are `>`, `>=`, `<`, `<=`, `!=`. <br />You can define multiple ranges, separated by a comma, which will be treated as a **logical AND**. A pipe symbol `|` will be treated as a **logical OR**. <br />AND has higher precedence than OR.
 Wildcard       | `1.0.*`                                   | You can specify a pattern with a `*` wildcard. `1.0.*` is the equivalent of `>=1.0,<1.1`.
 Tilde Operator | `~1.2`                                    | Very useful for projects that follow semantic versioning. `~1.2` is equivalent to `>=1.2,<2.0`. For more details, read the next section below.
+-->
 
 ### Next Significant Release (Tilde Operator)
 

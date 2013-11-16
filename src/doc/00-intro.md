@@ -1,4 +1,4 @@
-# Introduction - イントロダクション
+# イントロダクション
 
 ComposerはPHPの依存管理ツールです。
 Composerはあなたのプロジェクトが必要とする依存ライブラリを定義できるようにして、インストールを行います。
@@ -9,9 +9,9 @@ the dependent libraries your project needs and it will install them in your
 project for you.
 -->
 
-## Dependency management　- 依存管理
+## 依存管理
 
-Composerはパッケージ管理ではありません。そう、Composerは「複数」のパッケージやライブラリを扱います。
+Composerはパッケージ管理ツールではありません。そう、Composerは「複数」のパッケージやライブラリを扱います。
 Composerはライブラリをプロジェクト単位に管理します。あなたのプロジェクト内のディレクトリ(例: `vendor`)にライブラリをインストールします。
 デフォルトではグローバルには決してインストールしません。
 したがって、これは依存管理なわけです。
@@ -55,7 +55,7 @@ d) Composer finds out which versions of which packages need to be installed, and
    installs them (meaning it downloads them into your project).
 -->
 
-## Declaring dependencies - 依存関係を定義する
+## 依存関係を定義する
 
 あなたが新しいプロジェクトを作成し、そしてロギングのライブラリを必要としていたとしましょう。
 あなたは[monolog](https://github.com/Seldaek/monolog)を使うことに決めました。
@@ -82,7 +82,7 @@ We are simply stating that our project requires some `monolog/monolog` package,
 any version beginning with `1.2`.
 -->
 
-## System Requirements - システムの必要条件
+## システムの必要条件
 
 Composerが動作するためにはPHP 5.3.2以上が必要です。
 また、多少センシティブなPHPの設定とコンパイルフラグも必要です。
@@ -109,11 +109,11 @@ Composer is multi-platform and we strive to make it run equally well on Windows,
 Linux and OSX.
 -->
 
-## Installation - *nix -*nixへインストール
+## *nixへインストール
 
-### Downloading the Composer Executable - 実行形式のComposerをダウンロード
+### 実行形式のComposerをダウンロード
 
-#### Locally - ローカルにインストール
+#### ローカルにインストール
 
 実際にComposerを利用するためには２つのことをしなければなりません。最初のひとつはComposerをインストールすることです。
 （もう一度言います。これはあなたのプロジェクト配下にダウンロードするという意味です）
@@ -146,7 +146,7 @@ option and providing a target directory (it can be an absolute or relative path)
 
     $ curl -sS https://getcomposer.org/installer | php -- --install-dir=bin
 
-#### Globally - グローバルにインストール
+#### グローバルにインストール
 
 このファイルはあなたの好きな場所に置くことができます。`PATH`の通った場所に置くことで、グローバルにアクセスすることができます。
 unix系のシステムでは実行形式にして`php`なしで実行することもできます。
@@ -179,7 +179,7 @@ again with sudo.
 Then, just run `composer` in order to run Composer instead of `php composer.phar`.
 -->
 
-#### Globally (on OSX via homebrew) - グローバルにインストール (homebrewでOSXに)
+#### グローバルにインストール (homebrewでOSXに)
 
 Composerはhomebrew-phpプロジェクトの一部です。
 
@@ -204,9 +204,9 @@ Composer is part of the homebrew-php project.
 > `brew install php53-intl`
 -->
 
-## Installation - Windows - Windowsへインストール
+## Windowsへインストール
 
-### Using the Installer - インストーラを使う
+### インストーラを使う
 
 これはComposerをあなたのマシンにセットアップする最も簡単な方法です。
 
@@ -223,7 +223,7 @@ it will install the latest Composer version and set up your PATH so that you can
 just call `composer` from any directory in your command line.
 -->
 
-### Manual Installation - 手動でインストール
+### 手動でインストール
 
 `PATH`の通っているディレクトリに移動してcomposer.pharをダウンロードするため以下のインストールスニペットを実行してください。
 
@@ -260,7 +260,7 @@ Close your current terminal. Test usage with a new terminal:
 
     C:\Users\username>
 
-## Using Composer - Composerを使う
+## Composerを使う
 
 プロジェクトの依存物をインストールするためにComposerを使いましょう。
 もしカレントディレクトリに`composer.json`ファイルがない場合は
@@ -289,14 +289,14 @@ run this instead:
 
     $ composer install
 
-[前述の例](#declaring-dependencies-)では、monologを`vendor/monolog/monolog`にダウンロードします。
+前述の例では、monologを`vendor/monolog/monolog`にダウンロードします。
 
 <!--
 Following the [example above](#declaring-dependencies), this will download
 monolog into the `vendor/monolog/monolog` directory.
 -->
 
-## Autoloading - オートローディング
+## オートローディング
 
 ライブラリのダウンロードだけでなく、Composerはオートロードファイルを用意します。
 このファイルはダウンロードしたライブラリ内のすべてのクラスのオートローディングをおこないます。

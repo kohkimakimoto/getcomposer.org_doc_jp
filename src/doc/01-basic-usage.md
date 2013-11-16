@@ -16,25 +16,50 @@ To install Composer, you just need to download the `composer.phar` executable.
 For the details, see the [Introduction](00-intro.md) chapter.
 -->
 
+Composerが動作するかチェックするために、`php`でPHARを実行してください。
+
+<!--
 To check if Composer is working, just run the PHAR through `php`:
+-->
 
     $ php composer.phar
 
-This should give you a list of available commands.
+利用できるコマンドの一覧が表示されるでしょう。
 
+<!--
+This should give you a list of available commands.
+-->
+
+> **注意:** `--check`オプションを使えばComposerをダウンロードせずに、チェックだけを行うこともできます。
+> より詳しい情報は`--help`オプションを使ってみてください。
+> 
+>     $ curl -sS https://getcomposer.org/installer | php -- --help
+
+<!--
 > **Note:** You can also perform the checks only without downloading Composer
 > by using the `--check` option. For more information, just use `--help`.
 >
 >     $ curl -sS https://getcomposer.org/installer | php -- --help
+-->
 
-## `composer.json`: Project Setup
+## `composer.json`: Project Setup - プロジェクトのセットアップ
 
+Composerをあなたのプロジェクトで利用するのに必要となるものは`composer.json`ファイルだけです。
+このファイルにはプロジェクトの依存情報が記述されます。そしてその他のメタデータも含まれるかもしれません。
+
+<!--
 To start using Composer in your project, all you need is a `composer.json`
 file. This file describes the dependencies of your project and may contain
 other metadata as well.
+-->
 
+[JSONフォーマット](http://json.org/)は書くのがとても簡単です。
+これはネストした構造を定義することができます。
+
+<!--
 The [JSON format](http://json.org/) is quite easy to write. It allows you to
 define nested structures.
+-->
 
 ### The `require` Key
 

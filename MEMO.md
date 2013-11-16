@@ -4,7 +4,7 @@
 
 英語苦手なのでまったりと作業。
 
-##　編集環境のセットアップ
+## 編集環境のセットアップ
 
     $ npm install
     $ grunt 
@@ -36,7 +36,7 @@ Gemfileを以下のように修正
 
     $ bundle install --path=vendor/bundle --binstubs=vendor/bin
 
-travisにログインしてトークンを取得
+travisにログインしてGithubのトークンを指定してtravisのトークンを取得
 
     $ bundle exec travis login --pro
     $ bundle exec travis encrypt -r kohkimakimoto/getcomposer.org_doc_jp "GH_TOKEN=<token>"

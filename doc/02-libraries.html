@@ -60,17 +60,32 @@ this by adding a `name` to `composer.json`:
         &quot;monolog/monolog&quot;: &quot;1.0.*&quot;
     }
 }</code></pre>
-<p>In this case the project name is <code>acme/hello-world</code>, where <code>acme</code> is the
-vendor name. Supplying a vendor name is mandatory.</p>
+<p>この例では、プロジェクト名は<code>acme/hello-world</code>です。<code>acme</code>はベンダー名です。ベンダー名は必須です。</p>
+<!--
+In this case the project name is `acme/hello-world`, where `acme` is the
+vendor name. Supplying a vendor name is mandatory.
+-->
+
 <blockquote>
-<p><strong>Note:</strong> If you don&#39;t know what to use as a vendor name, your GitHub
-username is usually a good bet. While package names are case insensitive, the
-convention is all lowercase and dashes for word separation.</p>
+<p><strong>注意:</strong> もしベンダー名に何をつけていいかわからない場合は、あなたのGitHubのユーザネームをつけるといいでしょう。
+パッケージ名は大文字小文字を区別しないので、全て小文字で単語の区切りはダッシュで行うのが規約です。</p>
 </blockquote>
-<h2 id="platform-packages">Platform packages</h2>
-<p>Composer has platform packages, which are virtual packages for things that are
+<!--
+> **Note:** If you don't know what to use as a vendor name, your GitHub
+username is usually a good bet. While package names are case insensitive, the
+convention is all lowercase and dashes for word separation.
+-->
+
+<h2 id="-">プラットフォームパッケージ</h2>
+<p>Composerはプラットフォームパッケージを持っています。これはシステムにインストールされる仮想的なパッケージで、
+実際にはComposerではインストールされません。
+これはPHP自身やPHPのエクステンション、システムライブライリを含みます。</p>
+<!--
+Composer has platform packages, which are virtual packages for things that are
 installed on the system but are not actually installable by Composer. This
-includes PHP itself, PHP extensions and some system libraries.</p>
+includes PHP itself, PHP extensions and some system libraries.
+-->
+
 <ul>
 <li><p><code>php</code> represents the PHP version of the user, allowing you to apply
  constraints, e.g. <code>&gt;=5.4.0</code>. To require a 64bit version of php, you can

@@ -34,18 +34,33 @@ this by adding a `name` to `composer.json`:
         }
     }
 
+この例では、プロジェクト名は`acme/hello-world`です。`acme`はベンダー名です。ベンダー名は必須です。
+
+<!--
 In this case the project name is `acme/hello-world`, where `acme` is the
 vendor name. Supplying a vendor name is mandatory.
+-->
 
+> **注意:** もしベンダー名に何をつけていいかわからない場合は、あなたのGitHubのユーザネームをつけるといいでしょう。
+パッケージ名は大文字小文字を区別しないので、全て小文字で単語の区切りはダッシュで行うのが規約です。
+
+<!--
 > **Note:** If you don't know what to use as a vendor name, your GitHub
 username is usually a good bet. While package names are case insensitive, the
 convention is all lowercase and dashes for word separation.
+-->
 
-## Platform packages
+## プラットフォームパッケージ
 
+Composerはプラットフォームパッケージを持っています。これはシステムにインストールされる仮想的なパッケージで、
+実際にはComposerではインストールされません。
+これはPHP自身やPHPのエクステンション、システムライブライリを含みます。
+
+<!--
 Composer has platform packages, which are virtual packages for things that are
 installed on the system but are not actually installable by Composer. This
 includes PHP itself, PHP extensions and some system libraries.
+-->
 
 * `php` represents the PHP version of the user, allowing you to apply
    constraints, e.g. `>=5.4.0`. To require a 64bit version of php, you can

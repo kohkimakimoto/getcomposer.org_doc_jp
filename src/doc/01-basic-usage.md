@@ -145,8 +145,19 @@ Wildcard       | `1.0.*`                                   | You can specify a p
 Tilde Operator | `~1.2`                                    | Very useful for projects that follow semantic versioning. `~1.2` is equivalent to `>=1.2,<2.0`. For more details, read the next section below.
 -->
 
-### Next Significant Release (Tilde Operator)
 
+### 次の重要なリリース (チルダ演算子)
+
+`~1.2`の例は`~`演算子の説明としてベストです。これは`>=1.2,<2.0`と同義です。
+一方、`~1.2.3`は`>=1.2.3,<1.3`と同義です。
+ごらんの通り、これは[セマンティックバージョニング](http://semver.org/)に準拠しているプロジェクトにおいてとても便利です。
+最も一般的な使い方は、`~1.2`(2.0は含まず全てのアップロードを許可する)のように、
+あなたが依存している最小のマイナーバージョンをマークすることでしょう。
+理論上は、2.0までの動作について後方互換性の破壊がなくなるでしょう。
+もう一つの使い方は、`~`を最小のバージョンに指定することです。
+これは指定された末尾の数値の更新を許可します。
+
+<!--
 The `~` operator is best explained by example: `~1.2` is equivalent to
 `>=1.2,<2.0`, while `~1.2.3` is equivalent to `>=1.2.3,<1.3`. As you can see
 it is mostly useful for projects respecting [semantic
@@ -155,35 +166,61 @@ minor version you depend on, like `~1.2` (which allows anything up to, but not
 including, 2.0). Since in theory there should be no backwards compatibility
 breaks until 2.0, that works well. Another way of looking at it is that using
 `~` specifies a minimum version, but allows the last digit specified to go up.
+-->
 
-### Stability
+### 安定性
 
+デフォルトでは安定版のリリースのみが考慮されます。依存物にRC、ベータ、アルファ版、または開発バージョンを扱いたい場合
+[安定性フラグ](04-schema.html#package-links)を使うことができます。
+依存物ごとにそれを設定する代わりに、全てのパッケージを変更するための[最小の安定性](04-schema.html#minimum-stability)設定を使うこともできます。
+
+<!--
 By default only stable releases are taken into consideration. If you would like
 to also get RC, beta, alpha or dev versions of your dependencies you can do
 so using [stability flags](04-schema.md#package-links). To change that for all
 packages instead of doing per dependency you can also use the
 [minimum-stability](04-schema.md#minimum-stability) setting.
+-->
 
-## Installing Dependencies
+## 依存物をインストール
 
+ローカルのプロジェクトに定義した依存物をフェッチするために、`composer.phar`の`install`コマンドを実行します。
+
+<!--
 To fetch the defined dependencies into your local project, just run the
 `install` command of `composer.phar`.
+-->
 
     $ php composer.phar install
 
+これは指定したバージョン制約にマッチする`monolog/monolog`の最新バージョンを見つけて、`vendor`ディレクトリ内にダウンロードします。
+サードパーティのコードを`vendor`という名前のディレクトリ内におくことは慣習です。
+monologの場合、`vendor/monolog/monolog`に置かれます。
+
+<!--
 This will find the latest version of `monolog/monolog` that matches the
 supplied version constraint and download it into the `vendor` directory.
 It's a convention to put third party code into a directory named `vendor`.
 In case of monolog it will put it into `vendor/monolog/monolog`.
+-->
 
+> **Tip:** gitをプロジェクトで使っているのなら、多分`.gitignore`に`vendor`を追加したいでしょう。
+> リポジトリにコードを追加したくないので。
+
+<!--
 > **Tip:** If you are using git for your project, you probably want to add
 > `vendor` into your `.gitignore`. You really don't want to add all of that
 > code to your repository.
+-->
 
+`install`コマンドがするもう一つのことは、`composer.lock`ファイルをプロジェクトルートに追加することです。
+
+<!--
 Another thing that the `install` command does is it adds a `composer.lock`
 file into your project root.
+-->
 
-## `composer.lock` - The Lock File
+## `composer.lock` - ロックファイル
 
 After installing the dependencies, Composer writes the list of the exact
 versions it installed into a `composer.lock` file. This locks the project

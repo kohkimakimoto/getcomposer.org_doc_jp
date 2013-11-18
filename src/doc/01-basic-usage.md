@@ -128,12 +128,12 @@ means any version in the `1.0` development branch. It would match `1.0.0`,
 Version constraints can be specified in a few different ways.
 -->
 
-Name           | Example                                   | Description
+名称           | 例                                   | 説明
 -------------- | ---------------------                     | -----------
-Exact version  | `1.0.2`                                   | You can specify the exact version of a package.
-Range          | `>=1.0` `>=1.0,<2.0` <code>>=1.0,<1.1 &#124; >=1.2</code> | By using comparison operators you can specify ranges of valid versions. Valid operators are `>`, `>=`, `<`, `<=`, `!=`. <br />You can define multiple ranges, separated by a comma, which will be treated as a **logical AND**. A pipe symbol <code>&#124;</code> will be treated as a **logical OR**. <br />AND has higher precedence than OR.
-Wildcard       | `1.0.*`                                   | You can specify a pattern with a `*` wildcard. `1.0.*` is the equivalent of `>=1.0,<1.1`.
-Tilde Operator | `~1.2`                                    | Very useful for projects that follow semantic versioning. `~1.2` is equivalent to `>=1.2,<2.0`. For more details, read the next section below.
+厳密なバージョン  | `1.0.2`                                   | パッケージの厳密なバージョンを指定できます。
+レンジ          | `>=1.0` `>=1.0,<2.0` <code>>=1.0,<1.1 &#124; >=1.2</code> | 比較演算子で有効なバージョンの範囲を指定できます。 使用できる演算子は`>`, `>=`, `<`, `<=`, `!=`です。<br />カンマ区切りで**論理積(logical AND)**、パイプ<code>&#124;</code>で**論理和(logical OR)**として扱われる範囲を複数指定できます。<br />ANDはORより優先されます。
+ワイルドカード       | `1.0.*`                                   | ワイルドカード`*`でパターン指定をできます。`1.0.*` は`>=1.0,<1.1`と同じです。
+チルダ演算子 | `~1.2`                                    | これはセマンティックバージョニングに従っているプロジェクトにおいてとても便利です。`~1.2`は`>=1.2,<2.0`と同じです。詳細は次のセクションを読んでください。
 
 
 <!--

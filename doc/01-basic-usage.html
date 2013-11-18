@@ -179,37 +179,74 @@ Wildcard       | `1.0.*`                                   | You can specify a p
 Tilde Operator | `~1.2`                                    | Very useful for projects that follow semantic versioning. `~1.2` is equivalent to `>=1.2,<2.0`. For more details, read the next section below.
 -->
 
-<h3 id="next-significant-release-tilde-operator-">Next Significant Release (Tilde Operator)</h3>
-<p>The <code>~</code> operator is best explained by example: <code>~1.2</code> is equivalent to
-<code>&gt;=1.2,&lt;2.0</code>, while <code>~1.2.3</code> is equivalent to <code>&gt;=1.2.3,&lt;1.3</code>. As you can see
-it is mostly useful for projects respecting <a href="http://semver.org/">semantic
-versioning</a>. A common usage would be to mark the minimum
-minor version you depend on, like <code>~1.2</code> (which allows anything up to, but not
+
+<h3 id="-">次の重要なリリース (チルダ演算子)</h3>
+<p><code>~1.2</code>の例は<code>~</code>演算子の説明としてベストです。これは<code>&gt;=1.2,&lt;2.0</code>と同義です。
+一方、<code>~1.2.3</code>は<code>&gt;=1.2.3,&lt;1.3</code>と同義です。
+ごらんの通り、これは<a href="http://semver.org/">セマンティックバージョニング</a>に準拠しているプロジェクトにおいてとても便利です。
+最も一般的な使い方は、<code>~1.2</code>(2.0は含まず全てのアップロードを許可する)のように、
+あなたが依存している最小のマイナーバージョンをマークすることでしょう。
+理論上は、2.0までの動作について後方互換性の破壊がなくなるでしょう。
+もう一つの使い方は、<code>~</code>を最小のバージョンに指定することです。
+これは指定された末尾の数値の更新を許可します。</p>
+<!--
+The `~` operator is best explained by example: `~1.2` is equivalent to
+`>=1.2,<2.0`, while `~1.2.3` is equivalent to `>=1.2.3,<1.3`. As you can see
+it is mostly useful for projects respecting [semantic
+versioning](http://semver.org/). A common usage would be to mark the minimum
+minor version you depend on, like `~1.2` (which allows anything up to, but not
 including, 2.0). Since in theory there should be no backwards compatibility
 breaks until 2.0, that works well. Another way of looking at it is that using
-<code>~</code> specifies a minimum version, but allows the last digit specified to go up.</p>
-<h3 id="stability">Stability</h3>
-<p>By default only stable releases are taken into consideration. If you would like
+`~` specifies a minimum version, but allows the last digit specified to go up.
+-->
+
+<h3 id="-">安定性</h3>
+<p>デフォルトでは安定版のリリースのみが考慮されます。依存物にRC、ベータ、アルファ版、または開発バージョンを扱いたい場合
+<a href="04-schema.html#package-links">安定性フラグ</a>を使うことができます。
+依存物ごとにそれを設定する代わりに、全てのパッケージを変更するための<a href="04-schema.html#minimum-stability">最小の安定性</a>設定を使うこともできます。</p>
+<!--
+By default only stable releases are taken into consideration. If you would like
 to also get RC, beta, alpha or dev versions of your dependencies you can do
-so using <a href="04-schema.md#package-links">stability flags</a>. To change that for all
+so using [stability flags](04-schema.md#package-links). To change that for all
 packages instead of doing per dependency you can also use the
-<a href="04-schema.md#minimum-stability">minimum-stability</a> setting.</p>
-<h2 id="installing-dependencies">Installing Dependencies</h2>
-<p>To fetch the defined dependencies into your local project, just run the
-<code>install</code> command of <code>composer.phar</code>.</p>
+[minimum-stability](04-schema.md#minimum-stability) setting.
+-->
+
+<h2 id="-">依存物をインストール</h2>
+<p>ローカルのプロジェクトに定義した依存物をフェッチするために、<code>composer.phar</code>の<code>install</code>コマンドを実行します。</p>
+<!--
+To fetch the defined dependencies into your local project, just run the
+`install` command of `composer.phar`.
+-->
+
 <pre><code>$ php composer.phar install</code></pre>
-<p>This will find the latest version of <code>monolog/monolog</code> that matches the
-supplied version constraint and download it into the <code>vendor</code> directory.
-It&#39;s a convention to put third party code into a directory named <code>vendor</code>.
-In case of monolog it will put it into <code>vendor/monolog/monolog</code>.</p>
+<p>これは指定したバージョン制約にマッチする<code>monolog/monolog</code>の最新バージョンを見つけて、<code>vendor</code>ディレクトリ内にダウンロードします。
+サードパーティのコードを<code>vendor</code>という名前のディレクトリ内におくことは慣習です。
+monologの場合、<code>vendor/monolog/monolog</code>に置かれます。</p>
+<!--
+This will find the latest version of `monolog/monolog` that matches the
+supplied version constraint and download it into the `vendor` directory.
+It's a convention to put third party code into a directory named `vendor`.
+In case of monolog it will put it into `vendor/monolog/monolog`.
+-->
+
 <blockquote>
-<p><strong>Tip:</strong> If you are using git for your project, you probably want to add
-<code>vendor</code> into your <code>.gitignore</code>. You really don&#39;t want to add all of that
-code to your repository.</p>
+<p><strong>Tip:</strong> gitをプロジェクトで使っているのなら、多分<code>.gitignore</code>に<code>vendor</code>を追加したいでしょう。
+リポジトリにコードを追加したくないので。</p>
 </blockquote>
-<p>Another thing that the <code>install</code> command does is it adds a <code>composer.lock</code>
-file into your project root.</p>
-<h2 id="-composer-lock-the-lock-file"><code>composer.lock</code> - The Lock File</h2>
+<!--
+> **Tip:** If you are using git for your project, you probably want to add
+> `vendor` into your `.gitignore`. You really don't want to add all of that
+> code to your repository.
+-->
+
+<p><code>install</code>コマンドがするもう一つのことは、<code>composer.lock</code>ファイルをプロジェクトルートに追加することです。</p>
+<!--
+Another thing that the `install` command does is it adds a `composer.lock`
+file into your project root.
+-->
+
+<h2 id="-composer-lock-"><code>composer.lock</code> - ロックファイル</h2>
 <p>After installing the dependencies, Composer writes the list of the exact
 versions it installed into a <code>composer.lock</code> file. This locks the project
 to those specific versions.</p>

@@ -142,31 +142,31 @@ Version constraints can be specified in a few different ways.
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Example</th>
-<th>Description</th>
+<th>名称</th>
+<th>例</th>
+<th>説明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Exact version</td>
+<td>厳密なバージョン</td>
 <td><code>1.0.2</code></td>
-<td>You can specify the exact version of a package.</td>
+<td>パッケージの厳密なバージョンを指定できます。</td>
 </tr>
 <tr>
-<td>Range</td>
+<td>レンジ</td>
 <td><code>&gt;=1.0</code> <code>&gt;=1.0,&lt;2.0</code> <code>&gt;=1.0,<1.1 &#124; >=1.2</code></td>
-<td>By using comparison operators you can specify ranges of valid versions. Valid operators are <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>!=</code>. <br />You can define multiple ranges, separated by a comma, which will be treated as a <strong>logical AND</strong>. A pipe symbol <code>&#124;</code> will be treated as a <strong>logical OR</strong>. <br />AND has higher precedence than OR.</td>
+<td>比較演算子で有効なバージョンの範囲を指定できます。 使用できる演算子は<code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>!=</code>です。<br />カンマ区切りで<strong>論理積(logical AND)</strong>、パイプ<code>&#124;</code>で<strong>論理和(logical OR)</strong>として扱われる範囲を複数指定できます。<br />ANDはORより優先されます。</td>
 </tr>
 <tr>
-<td>Wildcard</td>
+<td>ワイルドカード</td>
 <td><code>1.0.*</code></td>
-<td>You can specify a pattern with a <code>*</code> wildcard. <code>1.0.*</code> is the equivalent of <code>&gt;=1.0,&lt;1.1</code>.</td>
+<td>ワイルドカード<code>*</code>でパターン指定をできます。<code>1.0.*</code> は<code>&gt;=1.0,&lt;1.1</code>と同じです。</td>
 </tr>
 <tr>
-<td>Tilde Operator</td>
+<td>チルダ演算子</td>
 <td><code>~1.2</code></td>
-<td>Very useful for projects that follow semantic versioning. <code>~1.2</code> is equivalent to <code>&gt;=1.2,&lt;2.0</code>. For more details, read the next section below.</td>
+<td>これはセマンティックバージョニングに従っているプロジェクトにおいてとても便利です。<code>~1.2</code>は<code>&gt;=1.2,&lt;2.0</code>と同じです。詳細は次のセクションを読んでください。</td>
 </tr>
 </tbody>
 </table>

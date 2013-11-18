@@ -130,7 +130,7 @@ Version constraints can be specified in a few different ways.
 
 名称           | 例                                   | 説明
 -------------- | ---------------------                     | -----------
-厳密なバージョン  | `1.0.2`                                   | パッケージの厳密なバージョンを指定できます。
+特定のバージョン  | `1.0.2`                                   | パッケージの特定のバージョンを指定できます。
 レンジ          | `>=1.0` `>=1.0,<2.0` <code>>=1.0,<1.1 &#124; >=1.2</code> | 比較演算子で有効なバージョンの範囲を指定できます。 使用できる演算子は`>`, `>=`, `<`, `<=`, `!=`です。<br />カンマ区切りで**論理積(logical AND)**、パイプ<code>&#124;</code>で**論理和(logical OR)**として扱われる範囲を複数指定できます。<br />ANDはORより優先されます。
 ワイルドカード       | `1.0.*`                                   | ワイルドカード`*`でパターン指定をできます。`1.0.*` は`>=1.0,<1.1`と同じです。
 チルダ演算子 | `~1.2`                                    | これはセマンティックバージョニングに従っているプロジェクトにおいてとても便利です。`~1.2`は`>=1.2,<2.0`と同じです。詳細は次のセクションを読んでください。
@@ -222,16 +222,39 @@ file into your project root.
 
 ## `composer.lock` - ロックファイル
 
+依存物をインストールしたあとに、Composerはインストールしたパッケージの実際のバージョンのリストを`composer.lock`に書き込みます。
+このファイルはプロジェクトをこれらの特定バージョンにロックします。
+
+<!--
 After installing the dependencies, Composer writes the list of the exact
 versions it installed into a `composer.lock` file. This locks the project
 to those specific versions.
+-->
 
+**アプリケーションの `composer.lock`を(`composer.json`と一緒に)バージョンコントロールにコミットしてください。 **
+
+<!--
 **Commit your application's `composer.lock` (along with `composer.json`) into version control.**
+-->
 
+これは重要なことです。なぜなら`install`コマンドはロックファイルが存在するかチェックし、
+あるならそこに指定されているバージョンをダウンロードするからです。
+(`composer.json`の内容に関わらず)
+
+<!--
 This is important because the `install` command checks if a lock file is present,
 and if it is, it downloads the versions specified there (regardless of what `composer.json`
 says).
+-->
 
+これはプロジェクトをセットアップするのが誰であっても厳密に同じバージョンの依存物をダウンロードする、ということです。
+CIサーバ、プロダクションマシン、チーム内の他のデベロッパー、全てで、誰でも同じ依存物を実行します。
+これは、開発への潜在的なバグの影響を軽減します。
+たとえあなたが一人で開発していたとしても、6ヶ月の間にプロジェクトを再インストールしたとき、
+依存物がその後多くの新しいバージョンをリリースしていたとしても、
+あなたはインストールされた依存物がちゃんと動くことを確信できます。
+
+<!--
 This means that anyone who sets up the project will download the exact
 same version of the dependencies. Your CI server, production machines, other
 developers in your team, everything and everyone runs on the same dependencies, which
@@ -239,58 +262,113 @@ mitigates the potential for bugs affecting only some parts of the deployments. E
 develop alone, in six months when reinstalling the project you can feel confident the
 dependencies installed are still working even if your dependencies released
 many new versions since then.
+-->
 
+`composer.lock`ファイルがない場合、Composerは依存物とバージョンを`composer.json`から読み、
+ロックファイルを作成します。
+
+<!--
 If no `composer.lock` file exists, Composer will read the dependencies and
 versions from `composer.json` and  create the lock file.
+-->
 
+これは、依存物に新しいバージョンがあった場合に自動的にはアップデートしないということです。
+新しいバージョンにアップデートするためには、`update`コマンドを使います。
+これはマッチする最新のバージョン(`composer.json`ファイルによります)をフェッチしロックファイルをその新しいバージョンで
+アップデートします。
+
+<!--
 This means that if any of the dependencies get a new version, you won't get the updates
 automatically. To update to the new version, use `update` command. This will fetch
 the latest matching versions (according to your `composer.json` file) and also update
 the lock file with the new version.
+-->
 
     $ php composer.phar update
 
+一つの依存物をインストール、またはアップデートしたいだけなら、ホワイトリストが使えます。
+
+<!--
 If you only want to install or update one dependency, you can whitelist them:
+-->
 
     $ php composer.phar update monolog/monolog [...]
 
+> **注意:** ライブラリの場合はロックファイルのコミットは不必要です。
+> [ライブラリ - ロックファイル](02-libraries.html#lock-file)を参照してください。
+
+<!--
 > **Note:** For libraries it is not necessarily recommended to commit the lock file,
 > see also: [Libraries - Lock file](02-libraries.md#lock-file).
+-->
 
 ## Packagist
 
+[Packagist](https://packagist.org/)はメインのComposerリポジトリです。
+Composerリポジトリは基本的なパッケージソースになります。
+これはパッケージを取得元となる場所のことです。
+Packagistは全ての人が利用できる中央リポジトリであることを目的としています。
+この場所で利用できるパッケージは自動的に`require`できるということです。
+
+<!--
 [Packagist](https://packagist.org/) is the main Composer repository. A Composer
 repository is basically a package source: a place where you can get packages
 from. Packagist aims to be the central repository that everybody uses. This
 means that you can automatically `require` any package that is available
 there.
+-->
 
+[packagistのWebサイト](https://packagist.org/) (packagist.org)ではパッケージを参照、検索できます。
+
+<!--
 If you go to the [packagist website](https://packagist.org/) (packagist.org),
 you can browse and search for packages.
+-->
 
+Composerを使っているオープンソースプロジェクトはそのパッケージをpackagist上で公開するべきです。
+Composerを使うために、ライブラリをpackagistに載せる必要ありません。
+しかしそうすることで人生がかなりシンプルになります。
+
+
+<!--
 Any open source project using Composer should publish their packages on
 packagist. A library doesn't need to be on packagist to be used by Composer,
 but it makes life quite a bit simpler.
+-->
 
-## Autoloading
+## オートローディング
 
+オートロード情報を指定するライブラリのためにComposerは`vendor/autoload.php`ファイルを生成します。
+単にこのファイルをインクルードすれば、オートローディングを自由に手に入れることができます。
+
+<!--
 For libraries that specify autoload information, Composer generates a
 `vendor/autoload.php` file. You can simply include this file and you
 will get autoloading for free.
+-->
 
     require 'vendor/autoload.php';
 
+これはサードパーティコードの利用を本当に簡単にします。例：プロジェクトがmonologに依存している場合、
+単にクラスをこのように始めればいいだけなのです。これでオートロードが行われます。
+
+<!--
 This makes it really easy to use third party code. For example: If your
 project depends on monolog, you can just start using classes from it, and they
 will be autoloaded.
+-->
 
     $log = new Monolog\Logger('name');
     $log->pushHandler(new Monolog\Handler\StreamHandler('app.log', Monolog\Logger::WARNING));
 
     $log->addWarning('Foo');
 
+`composer.json`に`autoload`フィールドを追加すれば、自分のコードでさえオートローダに追加することができます。
+
+<!--
 You can even add your own code to the autoloader by adding an `autoload` field
 to `composer.json`.
+-->
 
     {
         "autoload": {
@@ -298,13 +376,23 @@ to `composer.json`.
         }
     }
 
+Composerは[PSR-0](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md)オートローダを`Acme`ネームスペースに登録します。
+
+<!--
 Composer will register a
 [PSR-0](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md)
 autoloader for the `Acme` namespace.
+-->
 
+ネームスペースからディレクトリへのマッピングを定義しています。
+`src`ディレクトリはプロジェクトルートにあるとします。同じ階層に`vendor`もあります。
+例えば、ファイル名が`src/Acme/Foo.php`は`Acme\Foo`クラスを含みます。
+
+<!--
 You define a mapping from namespaces to directories. The `src` directory would
 be in your project root, on the same level as `vendor` directory is. An example
 filename would be `src/Acme/Foo.php` containing an `Acme\Foo` class.
+-->
 
 After adding the `autoload` field, you have to re-run `install` to re-generate
 the `vendor/autoload.php` file.

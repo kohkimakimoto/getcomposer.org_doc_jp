@@ -1,16 +1,31 @@
 # Libraries
 
+この章は、どのようにあなたのライブラリをComposerでインストールできるようにするかお話します。
+
+<!--
 This chapter will tell you how to make your library installable through Composer.
+-->
 
-## Every project is a package
+## 全てのプロジェクトはパッケージである
 
+`composer.json`をディレクトリに配置した時点で、そのディレクトリはパッケージとなります。
+あなたが`require`をプロジェクトに追加する時、あなたは他のパッケージに依存したパッケージを作っています。
+プロジェクトとライブラリの唯一の違いは、プロジェクトは名前のないパッケージということです。
+
+<!--
 As soon as you have a `composer.json` in a directory, that directory is a
 package. When you add a `require` to a project, you are making a package that
 depends on other packages. The only difference between your project and
 libraries is that your project is a package without a name.
+-->
 
+インストール可能なパッケージを作成するために、あなたはそれに名前をつける必要があります。
+そのため`composer.json`に`name`を追加してください。
+
+<!--
 In order to make that package installable you need to give it a name. You do
 this by adding a `name` to `composer.json`:
+-->
 
     {
         "name": "acme/hello-world",

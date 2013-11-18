@@ -196,8 +196,8 @@ Composer is part of the homebrew-php project.
 3. Use Composer with the `composer` command.
 -->
 
-**ノート:** もしPHP53でエラーになる、またはそれ以上のバージョンを失っている場合は、次のコマンドをつかってPHPをインストールしてください。
-`brew install php53-intl`
+> **注意:** もしPHP53でエラーになる、またはそれ以上のバージョンを失っている場合は、次のコマンドをつかってPHPをインストールしてください。
+> `brew install php53-intl`
 
 <!--
 > **Note:** If you receive an error saying PHP53 or higher is missing use this command to install php 

@@ -394,23 +394,46 @@ be in your project root, on the same level as `vendor` directory is. An example
 filename would be `src/Acme/Foo.php` containing an `Acme\Foo` class.
 -->
 
+`autoload`フィールドを追加したあと、`vendor/autoload.php`を再生成するため`install`を再実行しなければなりません。
+
+<!--
 After adding the `autoload` field, you have to re-run `install` to re-generate
 the `vendor/autoload.php` file.
+-->
 
+オートロードファイルのインクルードはまた、autoloaderインスタンスを戻します。
+なのでインクルード呼び出しの戻り値を変数に保持しておくことができます。
+そして、ネームスペースを追加することができます。
+これはテストスイート内で便利です。例えば、
+
+<!--
 Including that file will also return the autoloader instance, so you can store
 the return value of the include call in a variable and add more namespaces.
 This can be useful for autoloading classes in a test suite, for example.
+-->
 
     $loader = require 'vendor/autoload.php';
     $loader->add('Acme\\Test\\', __DIR__);
 
+PSR-0オートローディングに加えて、クラスマップもまたサポートしています。
+これはPSR-0に準拠していなくてもクラスをオートロードすることができます。
+詳細は[オートロードリファレンス](04-schema.html#autoload)を参照してください。
+
+<!--
 In addition to PSR-0 autoloading, classmap is also supported. This allows
 classes to be autoloaded even if they do not conform to PSR-0. See the
 [autoload reference](04-schema.md#autoload) for more details.
+-->
 
+> **注意:** Composerは自前のオートローダを提供しています. もしそれを使いたくない場合は
+> 単に`vendor/composer/autoload_namespaces.php`をインクルードすることができます。
+> これはネームスペースとディレクトリをマッピングしている連想配列を戻します。
+
+<!--
 > **Note:** Composer provides its own autoloader. If you don't want to use
 that one, you can just include `vendor/composer/autoload_namespaces.php`,
 which returns an associative array mapping namespaces to directories.
+-->
 
 <p class="prev-next">
   &larr; [イントロダクション](00-intro.html)  |  [ライブラリ](02-libraries.html) &rarr;

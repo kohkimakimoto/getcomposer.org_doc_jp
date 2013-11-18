@@ -31,14 +31,29 @@
             </header>
             <div id="main" role="main">
                 <h1 id="libraries">Libraries</h1>
-<p>This chapter will tell you how to make your library installable through Composer.</p>
-<h2 id="every-project-is-a-package">Every project is a package</h2>
-<p>As soon as you have a <code>composer.json</code> in a directory, that directory is a
-package. When you add a <code>require</code> to a project, you are making a package that
+<p>この章は、どのようにあなたのライブラリをComposerでインストールできるようにするかお話します。</p>
+<!--
+This chapter will tell you how to make your library installable through Composer.
+-->
+
+<h2 id="-">全てのプロジェクトはパッケージである</h2>
+<p><code>composer.json</code>をディレクトリに配置した時点で、そのディレクトリはパッケージとなります。
+あなたが<code>require</code>をプロジェクトに追加する時、あなたは他のパッケージに依存したパッケージを作っています。
+プロジェクトとライブラリの唯一の違いは、プロジェクトは名前のないパッケージということです。</p>
+<!--
+As soon as you have a `composer.json` in a directory, that directory is a
+package. When you add a `require` to a project, you are making a package that
 depends on other packages. The only difference between your project and
-libraries is that your project is a package without a name.</p>
-<p>In order to make that package installable you need to give it a name. You do
-this by adding a <code>name</code> to <code>composer.json</code>:</p>
+libraries is that your project is a package without a name.
+-->
+
+<p>インストール可能なパッケージを作成するために、あなたはそれに名前をつける必要があります。
+そのため<code>composer.json</code>に<code>name</code>を追加してください。</p>
+<!--
+In order to make that package installable you need to give it a name. You do
+this by adding a `name` to `composer.json`:
+-->
+
 <pre><code>{
     &quot;name&quot;: &quot;acme/hello-world&quot;,
     &quot;require&quot;: {

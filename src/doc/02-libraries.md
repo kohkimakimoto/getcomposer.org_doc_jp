@@ -62,6 +62,18 @@ installed on the system but are not actually installable by Composer. This
 includes PHP itself, PHP extensions and some system libraries.
 -->
 
+* `php`はユーザのPHPバージョンを表します。これには`>=5.4.0`のような制約を適用できます。
+    PHPの64bitバージョを要求するため、`php-64bit`のパッケージを指定出来ます。
+
+* `ext-<name>`はPHPのエクステンションを要求します。(コアエクステンション含みます)。
+  バージョニングには全く一致しないことがあります。なので制約には`*`を設定するのが概ね良い方法です。
+  エクステンションのパッケージ名の例は`ext-gd`です。
+
+* `lib-<name>`はPHPで使われるライブラリのバージョンを制約します。
+  次のものが利用できます: `curl`, `iconv`, `libxml`, `openssl`,
+  `pcre`, `uuid`, `xsl`.
+
+<!--
 * `php` represents the PHP version of the user, allowing you to apply
    constraints, e.g. `>=5.4.0`. To require a 64bit version of php, you can
    require the `php-64bit` package.
@@ -74,17 +86,29 @@ includes PHP itself, PHP extensions and some system libraries.
 * `lib-<name>` allows constraints to be made on versions of libraries used by
   PHP. The following are available: `curl`, `iconv`, `libxml`, `openssl`,
   `pcre`, `uuid`, `xsl`.
+-->
 
+`composer show --platform`を使うと、ローカルで利用できるプラットフォームパッケージのリストを得ることができます。
+
+<!--
 You can use `composer show --platform` to get a list of your locally available
 platform packages.
+-->
 
-## Specifying the version
+## バージョンの指定
 
+いくつかの方法でパッケージのバージョンを指定する必要があります。
+パッケージをPackagistで公開するときは、VCS(git, svn, hg)からバージョンを推測することができます。
+この場合、バージョンを指定する必要はありませんし、指定しないことが推奨されます。
+どのようにバージョンが指定されるかは、[タグ](#tags)と[ブランチ](#branches)を参照してください。
+
+<!--
 You need to specify the package's version some way. When you publish your
 package on Packagist, it is able to infer the version from the VCS (git, svn,
 hg) information, so in that case you do not have to specify it, and it is
 recommended not to. See [tags](#tags) and [branches](#branches) to see how
 version numbers are extracted from these.
+-->
 
 If you are creating packages by hand and really have to specify it explicitly,
 you can just add a `version` field:

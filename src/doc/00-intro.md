@@ -55,7 +55,7 @@ d) Composer finds out which versions of which packages need to be installed, and
    installs them (meaning it downloads them into your project).
 -->
 
-## 依存関係を定義する
+<h2 id="declaring-dependencies"> 依存関係を定義する </h2>
 
 あなたが新しいプロジェクトを作成し、そしてロギングのライブラリを必要としていたとしましょう。
 あなたは[monolog](https://github.com/Seldaek/monolog)を使うことに決めました。
@@ -82,7 +82,7 @@ We are simply stating that our project requires some `monolog/monolog` package,
 any version beginning with `1.2`.
 -->
 
-## システムの必要条件
+<h2> システムの必要条件 </h2>
 
 Composerが動作するためにはPHP 5.3.2以上が必要です。
 また、多少センシティブなPHPの設定とコンパイルフラグも必要です。
@@ -109,7 +109,7 @@ Composer is multi-platform and we strive to make it run equally well on Windows,
 Linux and OSX.
 -->
 
-## *nixへインストール
+<h2> *nixへインストール </h2>
 
 ### 実行形式のComposerをダウンロード
 
@@ -289,7 +289,7 @@ run this instead:
 
     $ composer install
 
-前述の例では、monologを`vendor/monolog/monolog`にダウンロードします。
+[前述](#declaring-dependencies)の例では、monologを`vendor/monolog/monolog`にダウンロードします。
 
 <!--
 Following the [example above](#declaring-dependencies), this will download

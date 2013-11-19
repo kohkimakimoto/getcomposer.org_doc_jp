@@ -87,28 +87,52 @@ includes PHP itself, PHP extensions and some system libraries.
 -->
 
 <ul>
-<li><p><code>php</code> represents the PHP version of the user, allowing you to apply
- constraints, e.g. <code>&gt;=5.4.0</code>. To require a 64bit version of php, you can
- require the <code>php-64bit</code> package.</p>
+<li><p><code>php</code>はユーザのPHPバージョンを表します。これには<code>&gt;=5.4.0</code>のような制約を適用できます。
+  PHPの64bitバージョを要求するため、<code>php-64bit</code>のパッケージを指定出来ます。</p>
 </li>
-<li><p><code>ext-&lt;name&gt;</code> allows you to require PHP extensions (includes core
-extensions). Versioning can be quite inconsistent here, so it&#39;s often
-a good idea to just set the constraint to <code>*</code>.  An example of an extension
-package name is <code>ext-gd</code>.</p>
+<li><p><code>ext-&lt;name&gt;</code>はPHPのエクステンションを要求します。(コアエクステンション含みます)。
+バージョニングには全く一致しないことがあります。なので制約には<code>*</code>を設定するのが概ね良い方法です。
+エクステンションのパッケージ名の例は<code>ext-gd</code>です。</p>
 </li>
-<li><p><code>lib-&lt;name&gt;</code> allows constraints to be made on versions of libraries used by
-PHP. The following are available: <code>curl</code>, <code>iconv</code>, <code>libxml</code>, <code>openssl</code>,
+<li><p><code>lib-&lt;name&gt;</code>はPHPで使われるライブラリのバージョンを制約します。
+次のものが利用できます: <code>curl</code>, <code>iconv</code>, <code>libxml</code>, <code>openssl</code>,
 <code>pcre</code>, <code>uuid</code>, <code>xsl</code>.</p>
 </li>
 </ul>
-<p>You can use <code>composer show --platform</code> to get a list of your locally available
-platform packages.</p>
-<h2 id="specifying-the-version">Specifying the version</h2>
-<p>You need to specify the package&#39;s version some way. When you publish your
+<!--
+* `php` represents the PHP version of the user, allowing you to apply
+   constraints, e.g. `>=5.4.0`. To require a 64bit version of php, you can
+   require the `php-64bit` package.
+
+* `ext-<name>` allows you to require PHP extensions (includes core
+  extensions). Versioning can be quite inconsistent here, so it's often
+  a good idea to just set the constraint to `*`.  An example of an extension
+  package name is `ext-gd`.
+
+* `lib-<name>` allows constraints to be made on versions of libraries used by
+  PHP. The following are available: `curl`, `iconv`, `libxml`, `openssl`,
+  `pcre`, `uuid`, `xsl`.
+-->
+
+<p><code>composer show --platform</code>を使うと、ローカルで利用できるプラットフォームパッケージのリストを得ることができます。</p>
+<!--
+You can use `composer show --platform` to get a list of your locally available
+platform packages.
+-->
+
+<h2 id="-">バージョンの指定</h2>
+<p>いくつかの方法でパッケージのバージョンを指定する必要があります。
+パッケージをPackagistで公開するときは、VCS(git, svn, hg)からバージョンを推測することができます。
+この場合、バージョンを指定する必要はありませんし、指定しないことが推奨されます。
+どのようにバージョンが指定されるかは、<a href="#tags">タグ</a>と<a href="#branches">ブランチ</a>を参照してください。</p>
+<!--
+You need to specify the package's version some way. When you publish your
 package on Packagist, it is able to infer the version from the VCS (git, svn,
 hg) information, so in that case you do not have to specify it, and it is
-recommended not to. See <a href="#tags">tags</a> and <a href="#branches">branches</a> to see how
-version numbers are extracted from these.</p>
+recommended not to. See [tags](#tags) and [branches](#branches) to see how
+version numbers are extracted from these.
+-->
+
 <p>If you are creating packages by hand and really have to specify it explicitly,
 you can just add a <code>version</code> field:</p>
 <pre><code>{

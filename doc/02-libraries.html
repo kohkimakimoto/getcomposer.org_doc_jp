@@ -133,16 +133,27 @@ recommended not to. See [tags](#tags) and [branches](#branches) to see how
 version numbers are extracted from these.
 -->
 
-<p>If you are creating packages by hand and really have to specify it explicitly,
-you can just add a <code>version</code> field:</p>
+<p>手動でパッケージを作っていて、本当に明示的にバージョンを指定しなければならない場合は、
+<code>version</code>フィールドを追加します。</p>
+<!--
+If you are creating packages by hand and really have to specify it explicitly,
+you can just add a `version` field:
+-->
+
 <pre><code>{
     &quot;version&quot;: &quot;1.0.0&quot;
 }</code></pre>
 <blockquote>
-<p><strong>Note:</strong> You should avoid specifying the version field explicitly, because
-for tags the value must match the tag name.</p>
+<p><strong>注意:</strong> バージョンフィールドを明示的に指定することは避けるべきです。
+なぜなら、タグの値がタグ名にマッチしなければならないからです。</p>
 </blockquote>
-<h3 id="tags">Tags</h3>
+<!--
+> **Note:** You should avoid specifying the version field explicitly, because
+> for tags the value must match the tag name.
+-->
+
+<h3 id="tags"> タグ </h3>
+
 <p>For every tag that looks like a version, a package version of that tag will be
 created. It should match &#39;X.Y.Z&#39; or &#39;vX.Y.Z&#39;, with an optional suffix
 of <code>-patch</code>, <code>-alpha</code>, <code>-beta</code> or <code>-RC</code>. The suffixes can also be followed by

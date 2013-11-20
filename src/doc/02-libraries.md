@@ -146,7 +146,7 @@ Here are a few examples of valid tag names:
     v2.0.0-alpha
     v2.0.4-p1
 
-### Branches
+<h3 id="branches">ブランチ</h3>
 
 For every branch, a package development version will be created. If the branch
 name looks like a version, the version will be `{branchname}-dev`. For example
@@ -166,7 +166,7 @@ Here are some examples of version branch names:
 > pulled from its `source`. See the [`install`](03-cli.md#install) command
 > for more details.
 
-### Aliases
+<h3 id="aliases">エイリアス</h3>
 
 It is possible to alias branch names to versions. For example, you could alias
 `dev-master` to `1.0.x-dev`, which would allow you to require `1.0.x-dev` in all
@@ -174,7 +174,7 @@ the packages.
 
 See [Aliases](articles/aliases.md) for more information.
 
-## Lock file
+<h2 id="lock-file">ロックファイル</h2>
 
 For your library you may commit the `composer.lock` file if you want to. This
 can help your team to always test against the same dependency versions.

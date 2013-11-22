@@ -195,7 +195,7 @@ on it. It only has an effect on the main project.
 If you do not want to commit the lock file and you are using git, add it to
 the `.gitignore`.
 
-## Publishing to a VCS
+<h2 id="publishing-to-a-vcs">VCSに公開する</h2>
 
 Once you have a vcs repository (version control system, e.g. git) containing a
 `composer.json` file, your library is already composer-installable. In this
@@ -246,7 +246,7 @@ That's all. You can now install the dependencies by running Composer's
 to your project by specifying the package repository and declaring the
 dependency in the `require` field.
 
-## Publishing to packagist
+<h2 id="publishing-to-packagist">packagistに公開する</h2>
 
 Alright, so now you can publish packages. But specifying the vcs repository
 every time is cumbersome. You don't want to force all your users to do that.

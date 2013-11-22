@@ -208,7 +208,8 @@ However, this lock file will not have any effect on other projects that depend
 on it. It only has an effect on the main project.</p>
 <p>If you do not want to commit the lock file and you are using git, add it to
 the <code>.gitignore</code>.</p>
-<h2 id="publishing-to-a-vcs">Publishing to a VCS</h2>
+<h2 id="publishing-to-a-vcs">VCSに公開する</h2>
+
 <p>Once you have a vcs repository (version control system, e.g. git) containing a
 <code>composer.json</code> file, your library is already composer-installable. In this
 example we will publish the <code>acme/hello-world</code> library on GitHub under
@@ -249,7 +250,8 @@ available, see <a href="05-repositories.md">Repositories</a>.</p>
 <p><strong>Recap:</strong> Any git/svn/hg repository containing a <code>composer.json</code> can be added
 to your project by specifying the package repository and declaring the
 dependency in the <code>require</code> field.</p>
-<h2 id="publishing-to-packagist">Publishing to packagist</h2>
+<h2 id="publishing-to-packagist">packagistに公開する</h2>
+
 <p>Alright, so now you can publish packages. But specifying the vcs repository
 every time is cumbersome. You don&#39;t want to force all your users to do that.</p>
 <p>The other thing that you may have noticed is that we did not specify a package

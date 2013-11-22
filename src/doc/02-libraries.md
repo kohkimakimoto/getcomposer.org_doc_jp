@@ -215,13 +215,24 @@ See [Aliases](articles/aliases.md) for more information.
 
 <h2 id="lock-file">ロックファイル</h2>
 
+お望みならライブラリに`composer.lock`ファイルをコミットできます。
+これはチームが常に同じ依存バージョンでテストする際の助けになります。
+しかし、このロックファイルはこれに依存している他のプロジェクトにいかなる影響ももたらしません。
+これはメインのプロジェクトのみに影響します。
+
+<!--
 For your library you may commit the `composer.lock` file if you want to. This
 can help your team to always test against the same dependency versions.
 However, this lock file will not have any effect on other projects that depend
 on it. It only has an effect on the main project.
+-->
 
+もしロックファイルをコミットしたくなくてgitを使っている場合は、それを`.gitignore`に追加してください。
+
+<!--
 If you do not want to commit the lock file and you are using git, add it to
 the `.gitignore`.
+-->
 
 <h2 id="publishing-to-a-vcs">VCSに公開する</h2>
 

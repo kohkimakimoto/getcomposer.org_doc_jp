@@ -144,11 +144,11 @@ of `-patch`, `-alpha`, `-beta` or `-RC`. The suffixes can also be followed by
 a number.
 -->
 
+以下が、有効なタグ名の例になります:
+
 <!--
 Here are a few examples of valid tag names:
 -->
-
-以下が、有効なタグ名の例になります:
 
     1.0.0
     v1.0.0
@@ -164,7 +164,7 @@ Here are a few examples of valid tag names:
 例えば`2.0`ブランチは`2.0.x-dev`バージョンとなります。
 (`.x`はそれがブランチであることを認識するために、技術的な理由で追加されます。
 `2.0.x`ブランチも有効で同様に`2.0.x-dev`となります。
-ブランチがバージョンのように見えない場合、`dev-{branchname}`になります。`master`は`dev-master`となります)
+ブランチがバージョンのように見えない場合、`dev-{branchname}`になります。`master`は`dev-master`となります。
 
 <!--
 For every branch, a package development version will be created. If the branch
@@ -176,23 +176,42 @@ like a version, it will be `dev-{branchname}`. `master` results in a
 `dev-master` version.
 -->
 
+以下が、ブランチ名の例になります:
+
+<!--
 Here are some examples of version branch names:
+-->
 
     1.x
     1.0 (equals 1.0.x)
     1.1.x
 
+> **注意:** 開発バージョンをインストールするとき、自動で`source`からpullされます。
+> 詳細は[`install`](03-cli.html#install)コマンドを参照してください。
+
+<!--
 > **Note:** When you install a development version, it will be automatically
 > pulled from its `source`. See the [`install`](03-cli.md#install) command
 > for more details.
+-->
 
 <h3 id="aliases">エイリアス</h3>
 
+ブランチ名にバージョンのエイリアスをつけることができます。
+例えば、`dev-master`のエイリアスに`1.0.x-dev`つけることができます。
+これですべてのパッケージで`1.0.x-dev`を要求することができます。
+
+<!--
 It is possible to alias branch names to versions. For example, you could alias
 `dev-master` to `1.0.x-dev`, which would allow you to require `1.0.x-dev` in all
 the packages.
+-->
 
+詳細は[エイリアス](articles/aliases.html)を参照してください。
+
+<!--
 See [Aliases](articles/aliases.md) for more information.
+-->
 
 <h2 id="lock-file">ロックファイル</h2>
 

@@ -132,12 +132,23 @@ you can just add a `version` field:
 
 <h3 id="tags"> タグ </h3>
 
+バージョンのように見えるタグで、パッケージバージョンが作成されます。
+これは'X.Y.Z'または'vX.Y.Z'にマッチする形式で、オプションでサフィックス
+`-patch`,`-alpha`,`-beta`または`-RC`がつきます。
+また、サフィックスには数値をつけることもできます。
+
+<!--
 For every tag that looks like a version, a package version of that tag will be
 created. It should match 'X.Y.Z' or 'vX.Y.Z', with an optional suffix
 of `-patch`, `-alpha`, `-beta` or `-RC`. The suffixes can also be followed by
 a number.
+-->
 
+<!--
 Here are a few examples of valid tag names:
+-->
+
+以下が、有効なタグ名の例になります:
 
     1.0.0
     v1.0.0

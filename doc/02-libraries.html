@@ -230,12 +230,23 @@ See [Aliases](articles/aliases.md) for more information.
 
 <h2 id="lock-file">ロックファイル</h2>
 
-<p>For your library you may commit the <code>composer.lock</code> file if you want to. This
+<p>お望みならライブラリに<code>composer.lock</code>ファイルをコミットできます。
+これはチームが常に同じ依存バージョンでテストする際の助けになります。
+しかし、このロックファイルはこれに依存している他のプロジェクトにいかなる影響ももたらしません。
+これはメインのプロジェクトのみに影響します。</p>
+<!--
+For your library you may commit the `composer.lock` file if you want to. This
 can help your team to always test against the same dependency versions.
 However, this lock file will not have any effect on other projects that depend
-on it. It only has an effect on the main project.</p>
-<p>If you do not want to commit the lock file and you are using git, add it to
-the <code>.gitignore</code>.</p>
+on it. It only has an effect on the main project.
+-->
+
+<p>もしロックファイルをコミットしたくなくてgitを使っている場合は、それを<code>.gitignore</code>に追加してください。</p>
+<!--
+If you do not want to commit the lock file and you are using git, add it to
+the `.gitignore`.
+-->
+
 <h2 id="publishing-to-a-vcs">VCSに公開する</h2>
 
 <p>Once you have a vcs repository (version control system, e.g. git) containing a

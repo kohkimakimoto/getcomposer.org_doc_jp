@@ -1,4 +1,4 @@
-# Command-line interface
+<h1 id="command-line-interface">コマンドラインインターフェース</h1>
 
 You've already learned how to use the command-line interface to do some
 things. This chapter documents all the available commands.
@@ -7,7 +7,7 @@ To get help from the command-line, simply call `composer` or `composer list`
 to see the complete list of commands, then `--help` combined with any of those
 can give you more information.
 
-## Global Options
+<h2 id="Global Options">グローバルオプション</h2>
 
 The following options are available with every command:
 
@@ -21,7 +21,7 @@ The following options are available with every command:
 * **--no-ansi:** Disable ANSI output.
 * **--version (-V):** Display this application version.
 
-## Process Exit Codes
+<h2 id="process-exit-codes">プロセスの終了コード</h2>
 
 * **0:** OK
 * **1:** Generic/unknown error code

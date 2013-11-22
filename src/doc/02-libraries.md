@@ -132,7 +132,7 @@ you can just add a `version` field:
 
 <h3 id="tags"> タグ </h3>
 
-バージョンのように見えるタグで、パッケージバージョンが作成されます。
+バージョンのように見えるタグでパッケージのバージョンが作成されます。
 これは'X.Y.Z'または'vX.Y.Z'にマッチする形式で、オプションでサフィックス
 `-patch`,`-alpha`,`-beta`または`-RC`がつきます。
 また、サフィックスには数値をつけることもできます。
@@ -159,6 +159,14 @@ Here are a few examples of valid tag names:
 
 <h3 id="branches">ブランチ</h3>
 
+ブランチでパッケージの開発バージョンを作成できます。
+ブランチがバージョンのように見える場合、そのバージョンは`{branchname}-dev`となります。
+例えば`2.0`ブランチは`2.0.x-dev`バージョンとなります。
+(`.x`はそれがブランチであることを認識するために、技術的な理由で追加されます。
+`2.0.x`ブランチも有効で同様に`2.0.x-dev`となります。
+ブランチがバージョンのように見えない場合、`dev-{branchname}`になります。`master`は`dev-master`となります)
+
+<!--
 For every branch, a package development version will be created. If the branch
 name looks like a version, the version will be `{branchname}-dev`. For example
 a branch `2.0` will get a version `2.0.x-dev` (the `.x` is added for technical
@@ -166,6 +174,7 @@ reasons, to make sure it is recognized as a branch, a `2.0.x` branch would also
 be valid and be turned into `2.0.x-dev` as well. If the branch does not look
 like a version, it will be `dev-{branchname}`. `master` results in a
 `dev-master` version.
+-->
 
 Here are some examples of version branch names:
 

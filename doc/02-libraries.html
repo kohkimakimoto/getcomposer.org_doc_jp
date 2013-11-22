@@ -154,7 +154,7 @@ you can just add a `version` field:
 
 <h3 id="tags"> タグ </h3>
 
-<p>バージョンのように見えるタグで、パッケージバージョンが作成されます。
+<p>バージョンのように見えるタグでパッケージのバージョンが作成されます。
 これは&#39;X.Y.Z&#39;または&#39;vX.Y.Z&#39;にマッチする形式で、オプションでサフィックス
 <code>-patch</code>,<code>-alpha</code>,<code>-beta</code>または<code>-RC</code>がつきます。
 また、サフィックスには数値をつけることもできます。</p>
@@ -178,13 +178,22 @@ v2.0.0-alpha
 v2.0.4-p1</code></pre>
 <h3 id="branches">ブランチ</h3>
 
-<p>For every branch, a package development version will be created. If the branch
-name looks like a version, the version will be <code>{branchname}-dev</code>. For example
-a branch <code>2.0</code> will get a version <code>2.0.x-dev</code> (the <code>.x</code> is added for technical
-reasons, to make sure it is recognized as a branch, a <code>2.0.x</code> branch would also
-be valid and be turned into <code>2.0.x-dev</code> as well. If the branch does not look
-like a version, it will be <code>dev-{branchname}</code>. <code>master</code> results in a
-<code>dev-master</code> version.</p>
+<p>ブランチでパッケージの開発バージョンを作成できます。
+ブランチがバージョンのように見える場合、そのバージョンは<code>{branchname}-dev</code>となります。
+例えば<code>2.0</code>ブランチは<code>2.0.x-dev</code>バージョンとなります。
+(<code>.x</code>はそれがブランチであることを認識するために、技術的な理由で追加されます。
+<code>2.0.x</code>ブランチも有効で同様に<code>2.0.x-dev</code>となります。
+ブランチがバージョンのように見えない場合、<code>dev-{branchname}</code>になります。<code>master</code>は<code>dev-master</code>となります)</p>
+<!--
+For every branch, a package development version will be created. If the branch
+name looks like a version, the version will be `{branchname}-dev`. For example
+a branch `2.0` will get a version `2.0.x-dev` (the `.x` is added for technical
+reasons, to make sure it is recognized as a branch, a `2.0.x` branch would also
+be valid and be turned into `2.0.x-dev` as well. If the branch does not look
+like a version, it will be `dev-{branchname}`. `master` results in a
+`dev-master` version.
+-->
+
 <p>Here are some examples of version branch names:</p>
 <pre><code>1.x
 1.0 (equals 1.0.x)

@@ -165,11 +165,11 @@ of `-patch`, `-alpha`, `-beta` or `-RC`. The suffixes can also be followed by
 a number.
 -->
 
+<p>以下が、有効なタグ名の例になります:</p>
 <!--
 Here are a few examples of valid tag names:
 -->
 
-<p>以下が、有効なタグ名の例になります:</p>
 <pre><code>1.0.0
 v1.0.0
 1.10.5-RC1
@@ -183,7 +183,7 @@ v2.0.4-p1</code></pre>
 例えば<code>2.0</code>ブランチは<code>2.0.x-dev</code>バージョンとなります。
 (<code>.x</code>はそれがブランチであることを認識するために、技術的な理由で追加されます。
 <code>2.0.x</code>ブランチも有効で同様に<code>2.0.x-dev</code>となります。
-ブランチがバージョンのように見えない場合、<code>dev-{branchname}</code>になります。<code>master</code>は<code>dev-master</code>となります)</p>
+ブランチがバージョンのように見えない場合、<code>dev-{branchname}</code>になります。<code>master</code>は<code>dev-master</code>となります。</p>
 <!--
 For every branch, a package development version will be created. If the branch
 name looks like a version, the version will be `{branchname}-dev`. For example
@@ -194,21 +194,40 @@ like a version, it will be `dev-{branchname}`. `master` results in a
 `dev-master` version.
 -->
 
-<p>Here are some examples of version branch names:</p>
+<p>以下が、ブランチ名の例になります:</p>
+<!--
+Here are some examples of version branch names:
+-->
+
 <pre><code>1.x
 1.0 (equals 1.0.x)
 1.1.x</code></pre>
 <blockquote>
-<p><strong>Note:</strong> When you install a development version, it will be automatically
-pulled from its <code>source</code>. See the <a href="03-cli.md#install"><code>install</code></a> command
-for more details.</p>
+<p><strong>注意:</strong> 開発バージョンをインストールするとき、自動で<code>source</code>からpullされます。
+詳細は<a href="03-cli.html#install"><code>install</code></a>コマンドを参照してください。</p>
 </blockquote>
+<!--
+> **Note:** When you install a development version, it will be automatically
+> pulled from its `source`. See the [`install`](03-cli.md#install) command
+> for more details.
+-->
+
 <h3 id="aliases">エイリアス</h3>
 
-<p>It is possible to alias branch names to versions. For example, you could alias
-<code>dev-master</code> to <code>1.0.x-dev</code>, which would allow you to require <code>1.0.x-dev</code> in all
-the packages.</p>
-<p>See <a href="articles/aliases.md">Aliases</a> for more information.</p>
+<p>ブランチ名にバージョンのエイリアスをつけることができます。
+例えば、<code>dev-master</code>のエイリアスに<code>1.0.x-dev</code>つけることができます。
+これですべてのパッケージで<code>1.0.x-dev</code>を要求することができます。</p>
+<!--
+It is possible to alias branch names to versions. For example, you could alias
+`dev-master` to `1.0.x-dev`, which would allow you to require `1.0.x-dev` in all
+the packages.
+-->
+
+<p>詳細は<a href="articles/aliases.html">エイリアス</a>を参照してください。</p>
+<!--
+See [Aliases](articles/aliases.md) for more information.
+-->
+
 <h2 id="lock-file">ロックファイル</h2>
 
 <p>For your library you may commit the <code>composer.lock</code> file if you want to. This

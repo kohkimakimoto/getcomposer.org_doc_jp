@@ -249,15 +249,28 @@ the `.gitignore`.
 
 <h2 id="publishing-to-a-vcs">VCSに公開する</h2>
 
-<p>Once you have a vcs repository (version control system, e.g. git) containing a
-<code>composer.json</code> file, your library is already composer-installable. In this
-example we will publish the <code>acme/hello-world</code> library on GitHub under
-<code>github.com/username/hello-world</code>.</p>
-<p>Now, to test installing the <code>acme/hello-world</code> package, we create a new
-project locally. We will call it <code>acme/blog</code>. This blog will depend on
-<code>acme/hello-world</code>, which in turn depends on <code>monolog/monolog</code>. We can
-accomplish this by creating a new <code>blog</code> directory somewhere, containing a
-<code>composer.json</code>:</p>
+<p><code>composer.json</code>ファイルを含むvcsリポジトリ(バージョンコントロールシステム、例:git)
+を持っているのならば、ライブラリはすでにcomposerでインストール可能です。
+この例ではGitHubで<code>acme/hello-world</code>ライブラリを<code>github.com/username/hello-world</code>として公開するとしましょう。</p>
+<!--
+Once you have a vcs repository (version control system, e.g. git) containing a
+`composer.json` file, your library is already composer-installable. In this
+example we will publish the `acme/hello-world` library on GitHub under
+`github.com/username/hello-world`.
+-->
+
+<p>それでは<code>acme/hello-world</code>パッケージのインストールをテストするため、
+ローカルに新しいプロジェクトを作成しましょう。私たちはそれを<code>acme/blog</code>とよぶことにします。
+このブログは<code>acme/hello-world</code>に依存し、それはさらに<code>monolog/monolog</code>に依存しています。
+これは、以下の<code>composer.json</code>を含む新しい<code>blog</code>ディレクトリを作成することで完成します。</p>
+<!--
+Now, to test installing the `acme/hello-world` package, we create a new
+project locally. We will call it `acme/blog`. This blog will depend on
+`acme/hello-world`, which in turn depends on `monolog/monolog`. We can
+accomplish this by creating a new `blog` directory somewhere, containing a
+`composer.json`:
+-->
+
 <pre><code>{
     &quot;name&quot;: &quot;acme/blog&quot;,
     &quot;require&quot;: {

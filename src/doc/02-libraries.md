@@ -236,16 +236,29 @@ the `.gitignore`.
 
 <h2 id="publishing-to-a-vcs">VCSに公開する</h2>
 
+`composer.json`ファイルを含むvcsリポジトリ(バージョンコントロールシステム、例:git)
+を持っているのならば、ライブラリはすでにcomposerでインストール可能です。
+この例ではGitHubで`acme/hello-world`ライブラリを`github.com/username/hello-world`として公開するとしましょう。
+
+<!--
 Once you have a vcs repository (version control system, e.g. git) containing a
 `composer.json` file, your library is already composer-installable. In this
 example we will publish the `acme/hello-world` library on GitHub under
 `github.com/username/hello-world`.
+-->
 
+それでは`acme/hello-world`パッケージのインストールをテストするため、
+ローカルに新しいプロジェクトを作成しましょう。私たちはそれを`acme/blog`とよぶことにします。
+このブログは`acme/hello-world`に依存し、それはさらに`monolog/monolog`に依存しています。
+これは、以下の`composer.json`を含む新しい`blog`ディレクトリを作成することで完成します。
+
+<!--
 Now, to test installing the `acme/hello-world` package, we create a new
 project locally. We will call it `acme/blog`. This blog will depend on
 `acme/hello-world`, which in turn depends on `monolog/monolog`. We can
 accomplish this by creating a new `blog` directory somewhere, containing a
 `composer.json`:
+-->
 
     {
         "name": "acme/blog",

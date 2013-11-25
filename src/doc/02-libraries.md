@@ -358,12 +358,24 @@ packagist is available automatically through Composer. Since monolog
 on it without having to specify any additional repositories.
 -->
 
+私たちが`hello-world`を世界に共有したいと考えた場合、packagistに公開するのがよいでしょう。
+本当に簡単にできます。
+
+<!--
 If we wanted to share `hello-world` with the world, we would publish it on
 packagist as well. Doing so is really easy.
+-->
 
+単純に"Submit Package"ボタンをクリックし、サインアップします。
+そしてVCSリポジトリのURLを送信していください。
+packagistはそのポイントをクローリングをはじめます。
+完了すると、パッケージはあらゆる人に利用可能になります。
+
+<!--
 You simply hit the big "Submit Package" button and sign up. Then you submit
 the URL to your VCS repository, at which point packagist will start crawling
 it. Once it is done, your package will be available to anyone.
+-->
 
 <p class="prev-next">
   &larr; [基本的な使い方](01-basic-usage.html) |  [コマンドラインインターフェース](03-cli.html) &rarr;

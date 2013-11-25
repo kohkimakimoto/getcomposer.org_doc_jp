@@ -250,7 +250,7 @@ example we will publish the `acme/hello-world` library on GitHub under
 それでは`acme/hello-world`パッケージのインストールをテストするため、
 ローカルに新しいプロジェクトを作成しましょう。私たちはそれを`acme/blog`とよぶことにします。
 このブログは`acme/hello-world`に依存し、それはさらに`monolog/monolog`に依存しています。
-これは、以下の`composer.json`を含む新しい`blog`ディレクトリを作成することで完成します。
+これは、以下の`composer.json`を含む新しい`blog`ディレクトリを作成することで成し遂げられます:
 
 <!--
 Now, to test installing the `acme/hello-world` package, we create a new
@@ -267,13 +267,23 @@ accomplish this by creating a new `blog` directory somewhere, containing a
         }
     }
 
+nameはこのケースでは必須ではありません。このブログをライブラリとして公開しないからです。
+これは`composer.json`の説明を明確にするために追加しています。
+
+<!--
 The name is not needed in this case, since we don't want to publish the blog
 as a library. It is added here to clarify which `composer.json` is being
 described.
+-->
 
+このブログアプリに依存物`hello-world`がどこで見つけられるのか知らせる必要があります。
+これはパッケージのリポジトリ指定をこのブログの`composer.json`に追加することでできます:
+
+<!--
 Now we need to tell the blog app where to find the `hello-world` dependency.
 We do this by adding a package repository specification to the blog's
 `composer.json`:
+-->
 
     {
         "name": "acme/blog",
@@ -288,15 +298,32 @@ We do this by adding a package repository specification to the blog's
         }
     }
 
+パッケージリポジトリが動作や、他にどのようなタイプが利用できるかの詳細は、
+[リポジトリ](05-repositories.html)を参照してください。
+
+<!--
 For more details on how package repositories work and what other types are
 available, see [Repositories](05-repositories.md).
+-->
 
+これで全てです。
+Composerの`install`コマンドを実行することで、
+依存関係をインストールすることができます！
+
+<!--
 That's all. You can now install the dependencies by running Composer's
 `install` command!
+-->
 
+**要約:** `composer.json`を含むあらゆるgit/svn/hgリポジトリは
+パッケージリポジトリを指定し`require`フィールドで依存物を定義することで、
+プロジェクトに追加することができます。
+
+<!--
 **Recap:** Any git/svn/hg repository containing a `composer.json` can be added
 to your project by specifying the package repository and declaring the
 dependency in the `require` field.
+-->
 
 <h2 id="publishing-to-packagist">packagistに公開する</h2>
 

@@ -262,7 +262,7 @@ example we will publish the `acme/hello-world` library on GitHub under
 <p>それでは<code>acme/hello-world</code>パッケージのインストールをテストするため、
 ローカルに新しいプロジェクトを作成しましょう。私たちはそれを<code>acme/blog</code>とよぶことにします。
 このブログは<code>acme/hello-world</code>に依存し、それはさらに<code>monolog/monolog</code>に依存しています。
-これは、以下の<code>composer.json</code>を含む新しい<code>blog</code>ディレクトリを作成することで完成します。</p>
+これは、以下の<code>composer.json</code>を含む新しい<code>blog</code>ディレクトリを作成することで成し遂げられます:</p>
 <!--
 Now, to test installing the `acme/hello-world` package, we create a new
 project locally. We will call it `acme/blog`. This blog will depend on
@@ -277,12 +277,22 @@ accomplish this by creating a new `blog` directory somewhere, containing a
         &quot;acme/hello-world&quot;: &quot;dev-master&quot;
     }
 }</code></pre>
-<p>The name is not needed in this case, since we don&#39;t want to publish the blog
-as a library. It is added here to clarify which <code>composer.json</code> is being
-described.</p>
-<p>Now we need to tell the blog app where to find the <code>hello-world</code> dependency.
-We do this by adding a package repository specification to the blog&#39;s
-<code>composer.json</code>:</p>
+<p>nameはこのケースでは必須ではありません。このブログをライブラリとして公開しないからです。
+これは<code>composer.json</code>の説明を明確にするために追加しています。</p>
+<!--
+The name is not needed in this case, since we don't want to publish the blog
+as a library. It is added here to clarify which `composer.json` is being
+described.
+-->
+
+<p>このブログアプリに依存物<code>hello-world</code>がどこで見つけられるのか知らせる必要があります。
+これはパッケージのリポジトリ指定をこのブログの<code>composer.json</code>に追加することでできます:</p>
+<!--
+Now we need to tell the blog app where to find the `hello-world` dependency.
+We do this by adding a package repository specification to the blog's
+`composer.json`:
+-->
+
 <pre><code>{
     &quot;name&quot;: &quot;acme/blog&quot;,
     &quot;repositories&quot;: [
@@ -295,13 +305,30 @@ We do this by adding a package repository specification to the blog&#39;s
         &quot;acme/hello-world&quot;: &quot;dev-master&quot;
     }
 }</code></pre>
-<p>For more details on how package repositories work and what other types are
-available, see <a href="05-repositories.md">Repositories</a>.</p>
-<p>That&#39;s all. You can now install the dependencies by running Composer&#39;s
-<code>install</code> command!</p>
-<p><strong>Recap:</strong> Any git/svn/hg repository containing a <code>composer.json</code> can be added
+<p>パッケージリポジトリが動作や、他にどのようなタイプが利用できるかの詳細は、
+<a href="05-repositories.html">リポジトリ</a>を参照してください。</p>
+<!--
+For more details on how package repositories work and what other types are
+available, see [Repositories](05-repositories.md).
+-->
+
+<p>これで全てです。
+Composerの<code>install</code>コマンドを実行することで、
+依存関係をインストールすることができます！</p>
+<!--
+That's all. You can now install the dependencies by running Composer's
+`install` command!
+-->
+
+<p><strong>要約:</strong> <code>composer.json</code>を含むあらゆるgit/svn/hgリポジトリは
+パッケージリポジトリを指定し<code>require</code>フィールドで依存物を定義することで、
+プロジェクトに追加することができます。</p>
+<!--
+**Recap:** Any git/svn/hg repository containing a `composer.json` can be added
 to your project by specifying the package repository and declaring the
-dependency in the <code>require</code> field.</p>
+dependency in the `require` field.
+-->
+
 <h2 id="publishing-to-packagist">packagistに公開する</h2>
 
 <p>Alright, so now you can publish packages. But specifying the vcs repository

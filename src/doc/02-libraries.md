@@ -327,17 +327,36 @@ dependency in the `require` field.
 
 <h2 id="publishing-to-packagist">packagistに公開する</h2>
 
+よろしい、今やパッケージを公開できるようになりました。
+しかし、毎回vcsリポジトリを指定するのはやっかいなことです。
+全てのユーザにそんなことはさせたくないでしょう。
+
+<!--
 Alright, so now you can publish packages. But specifying the vcs repository
 every time is cumbersome. You don't want to force all your users to do that.
+-->
 
+あなたは`monolog/monolog`リポジトリを指定していないことに、気づいているかもしれません。
+これはどのような仕組みでしょうか？答えはpackagistです。
+
+<!--
 The other thing that you may have noticed is that we did not specify a package
 repository for `monolog/monolog`. How did that work? The answer is packagist.
+-->
 
+[Packagist](https://packagist.org/)はComposerのメインパッケージリポジトリで、
+デフォルトで有効になっています。
+packagistで公開されている全てのものは自動的にComposerで利用可能です。
+monolog[はpackagistにある](https://packagist.org/packages/monolog/monolog)ので、
+私たち追加のリポジトリ指定なくして依存できるのです。
+
+<!--
 [Packagist](https://packagist.org/) is the main package repository for
 Composer, and it is enabled by default. Anything that is published on
 packagist is available automatically through Composer. Since monolog
 [is on packagist](https://packagist.org/packages/monolog/monolog), we can depend
 on it without having to specify any additional repositories.
+-->
 
 If we wanted to share `hello-world` with the world, we would publish it on
 packagist as well. Doing so is really easy.

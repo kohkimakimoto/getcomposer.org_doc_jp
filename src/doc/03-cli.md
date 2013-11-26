@@ -1,11 +1,22 @@
 <h1 id="command-line-interface">コマンドラインインターフェース</h1>
 
+すでにいくつかのことをするために、コマンドラインインターフェースの使い方は学んでいます。
+この章は全ての利用可能なコマンドを説明します。
+
+<!--
 You've already learned how to use the command-line interface to do some
 things. This chapter documents all the available commands.
+-->
 
+コマンドラインからヘルプを得るためには、単純に`composer`または`composer list`を実行します。
+全てのコマンドのリストが見ることができます。
+さらに`--help`をコマンドに加えればより多くの情報を得られます。
+
+<!--
 To get help from the command-line, simply call `composer` or `composer list`
 to see the complete list of commands, then `--help` combined with any of those
 can give you more information.
+-->
 
 <h2 id="Global Options">グローバルオプション</h2>
 

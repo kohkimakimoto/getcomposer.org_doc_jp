@@ -10,7 +10,7 @@ things. This chapter documents all the available commands.
 
 コマンドラインからヘルプを得るためには、単純に`composer`または`composer list`を実行します。
 全てのコマンドのリストが見ることができます。
-さらに`--help`をコマンドに加えればより多くの情報を得られます。
+さらに`--help`をそれらのコマンドに組み合わせればより多くの情報を得られます。
 
 <!--
 To get help from the command-line, simply call `composer` or `composer list`
@@ -20,7 +20,11 @@ can give you more information.
 
 <h2 id="Global Options">グローバルオプション</h2>
 
+以下のオプションは全てのコマンドで利用できます。
+
+<!--
 The following options are available with every command:
+-->
 
 * **--verbose (-v):** Increase verbosity of messages.
 * **--help (-h):** Display help information.

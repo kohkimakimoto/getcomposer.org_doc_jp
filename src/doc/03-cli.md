@@ -1,6 +1,6 @@
 <h1 id="command-line-interface">コマンドラインインターフェース</h1>
 
-すでにいくつかのことをするために、コマンドラインインターフェースの使い方は学んでいます。
+すでにいくつかのことをするために、コマンドラインインターフェースの使い方は学びました。
 この章は全ての利用可能なコマンドを説明します。
 
 <!--
@@ -26,6 +26,17 @@ can give you more information.
 The following options are available with every command:
 -->
 
+* **--verbose (-v):** メッセージの冗長さを増やす。
+* **--help (-h):** ヘルプ情報を表示する。
+* **--quiet (-q):** メッセージを出力しない。
+* **--no-interaction (-n):** インタラクティブな質問の問い合わせをおこなわない。
+* **--working-dir (-d):** 指定すると、与えられたディレクトリを作業ディレクトリに使う。
+* **--profile:** タイムとメモリ使用量を表示する。
+* **--ansi:** ANSI出力を強制する。
+* **--no-ansi:** ANSI出力を行わない。
+* **--version (-V):** アプリケーションのバージョンを表示する。
+
+<!--
 * **--verbose (-v):** Increase verbosity of messages.
 * **--help (-h):** Display help information.
 * **--quiet (-q):** Do not output any message.
@@ -35,14 +46,21 @@ The following options are available with every command:
 * **--ansi:** Force ANSI output.
 * **--no-ansi:** Disable ANSI output.
 * **--version (-V):** Display this application version.
+-->
 
 <h2 id="process-exit-codes">プロセスの終了コード</h2>
 
 * **0:** OK
+* **1:** 一般エラー
+* **2:** 依存解決エラー
+
+<!--
+* **0:** OK
 * **1:** Generic/unknown error code
 * **2:** Dependency solving error code
+-->
 
-## init
+<h2 id="init">init</h2>
 
 In the [Libraries](02-libraries.md) chapter we looked at how to create a
 `composer.json` by hand. There is also an `init` command available that makes

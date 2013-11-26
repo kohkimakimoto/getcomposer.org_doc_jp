@@ -32,7 +32,7 @@
             <div id="main" role="main">
                 <h1 id="command-line-interface">コマンドラインインターフェース</h1>
 
-<p>すでにいくつかのことをするために、コマンドラインインターフェースの使い方は学んでいます。
+<p>すでにいくつかのことをするために、コマンドラインインターフェースの使い方は学びました。
 この章は全ての利用可能なコマンドを説明します。</p>
 <!--
 You've already learned how to use the command-line interface to do some
@@ -56,24 +56,43 @@ The following options are available with every command:
 -->
 
 <ul>
-<li><strong>--verbose (-v):</strong> Increase verbosity of messages.</li>
-<li><strong>--help (-h):</strong> Display help information.</li>
-<li><strong>--quiet (-q):</strong> Do not output any message.</li>
-<li><strong>--no-interaction (-n):</strong> Do not ask any interactive question.</li>
-<li><strong>--working-dir (-d):</strong> If specified, use the given directory as working directory.</li>
-<li><strong>--profile:</strong> Display timing and memory usage information</li>
-<li><strong>--ansi:</strong> Force ANSI output.</li>
-<li><strong>--no-ansi:</strong> Disable ANSI output.</li>
-<li><strong>--version (-V):</strong> Display this application version.</li>
+<li><strong>--verbose (-v):</strong> メッセージの冗長さを増やす。</li>
+<li><strong>--help (-h):</strong> ヘルプ情報を表示する。</li>
+<li><strong>--quiet (-q):</strong> メッセージを出力しない。</li>
+<li><strong>--no-interaction (-n):</strong> インタラクティブな質問の問い合わせをおこなわない。</li>
+<li><strong>--working-dir (-d):</strong> 指定すると、与えられたディレクトリを作業ディレクトリに使う。</li>
+<li><strong>--profile:</strong> タイムとメモリ使用量を表示する。</li>
+<li><strong>--ansi:</strong> ANSI出力を強制する。</li>
+<li><strong>--no-ansi:</strong> ANSI出力を行わない。</li>
+<li><strong>--version (-V):</strong> アプリケーションのバージョンを表示する。</li>
 </ul>
+<!--
+* **--verbose (-v):** Increase verbosity of messages.
+* **--help (-h):** Display help information.
+* **--quiet (-q):** Do not output any message.
+* **--no-interaction (-n):** Do not ask any interactive question.
+* **--working-dir (-d):** If specified, use the given directory as working directory.
+* **--profile:** Display timing and memory usage information
+* **--ansi:** Force ANSI output.
+* **--no-ansi:** Disable ANSI output.
+* **--version (-V):** Display this application version.
+-->
+
 <h2 id="process-exit-codes">プロセスの終了コード</h2>
 
 <ul>
 <li><strong>0:</strong> OK</li>
-<li><strong>1:</strong> Generic/unknown error code</li>
-<li><strong>2:</strong> Dependency solving error code</li>
+<li><strong>1:</strong> 一般エラー</li>
+<li><strong>2:</strong> 依存解決エラー</li>
 </ul>
+<!--
+* **0:** OK
+* **1:** Generic/unknown error code
+* **2:** Dependency solving error code
+-->
+
 <h2 id="init">init</h2>
+
 <p>In the <a href="02-libraries.md">Libraries</a> chapter we looked at how to create a
 <code>composer.json</code> by hand. There is also an <code>init</code> command available that makes
 it a bit easier to do this.</p>

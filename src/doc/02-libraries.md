@@ -367,7 +367,7 @@ packagist as well. Doing so is really easy.
 -->
 
 単純に"Submit Package"ボタンをクリックし、サインアップします。
-そしてVCSリポジトリのURLを送信していください。
+そしてVCSリポジトリのURLを送信してください。
 packagistはそのポイントをクローリングをはじめます。
 完了すると、パッケージはあらゆる人に利用可能になります。
 

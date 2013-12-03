@@ -62,12 +62,22 @@ The following options are available with every command:
 
 <h2 id="init">init</h2>
 
+[ライブラリ](02-libraries.html)の章で`composer.json`を手動で作成する方法を確認しました。
+それを少し簡単に行うために`init`コマンドがあります。
+
+<!--
 In the [Libraries](02-libraries.md) chapter we looked at how to create a
 `composer.json` by hand. There is also an `init` command available that makes
 it a bit easier to do this.
+-->
 
+このコマンドを実行すると、スマートなデフォルト値を使いながら、
+フィールドに入力するよう対話的な問い合わせがあります。
+
+<!--
 When you run the command it will interactively ask you to fill in the fields,
 while using some smart defaults.
+-->
 
     $ php composer.phar init
 

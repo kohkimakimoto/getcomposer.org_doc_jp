@@ -81,8 +81,17 @@ while using some smart defaults.
 
     $ php composer.phar init
 
-### Options
+<h3 id="options">オプション</h3>
 
+* **--name:** パッケージの名前。
+* **--description:** パッケージの説明。
+* **--author:** パッケージの作者。
+* **--homepage:** パッケージのホームページ。
+* **--require:** バージョン制約を必要とするパッケージ。フォーマットは`foo/bar:1.0.0`のようにするべき。
+* **--require-dev:** Development requirements, see **--require**.
+* **--stability (-s):** Value for the `minimum-stability` field.
+
+<!--
 * **--name:** Name of the package.
 * **--description:** Description of the package.
 * **--author:** Author name of the package.
@@ -91,6 +100,7 @@ while using some smart defaults.
   in format `foo/bar:1.0.0`.
 * **--require-dev:** Development requirements, see **--require**.
 * **--stability (-s):** Value for the `minimum-stability` field.
+-->
 
 ## install
 

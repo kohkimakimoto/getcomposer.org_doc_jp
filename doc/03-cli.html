@@ -109,17 +109,28 @@ while using some smart defaults.
 -->
 
 <pre><code>$ php composer.phar init</code></pre>
-<h3 id="options">Options</h3>
+<h3 id="options">オプション</h3>
+
 <ul>
-<li><strong>--name:</strong> Name of the package.</li>
-<li><strong>--description:</strong> Description of the package.</li>
-<li><strong>--author:</strong> Author name of the package.</li>
-<li><strong>--homepage:</strong> Homepage of the package.</li>
-<li><strong>--require:</strong> Package to require with a version constraint. Should be
-in format <code>foo/bar:1.0.0</code>.</li>
+<li><strong>--name:</strong> パッケージの名前。</li>
+<li><strong>--description:</strong> パッケージの説明。</li>
+<li><strong>--author:</strong> パッケージの作者。</li>
+<li><strong>--homepage:</strong> パッケージのホームページ。</li>
+<li><strong>--require:</strong> バージョン制約を必要とするパッケージ。フォーマットは<code>foo/bar:1.0.0</code>のようにするべき。</li>
 <li><strong>--require-dev:</strong> Development requirements, see <strong>--require</strong>.</li>
 <li><strong>--stability (-s):</strong> Value for the <code>minimum-stability</code> field.</li>
 </ul>
+<!--
+* **--name:** Name of the package.
+* **--description:** Description of the package.
+* **--author:** Author name of the package.
+* **--homepage:** Homepage of the package.
+* **--require:** Package to require with a version constraint. Should be
+  in format `foo/bar:1.0.0`.
+* **--require-dev:** Development requirements, see **--require**.
+* **--stability (-s):** Value for the `minimum-stability` field.
+-->
+
 <h2 id="install">install</h2>
 <p>The <code>install</code> command reads the <code>composer.json</code> file from the current
 directory, resolves the dependencies, and installs them into <code>vendor</code>.</p>

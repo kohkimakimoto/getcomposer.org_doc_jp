@@ -102,19 +102,34 @@ while using some smart defaults.
 * **--stability (-s):** Value for the `minimum-stability` field.
 -->
 
-## install
+<h2 id="install">install</h2>
 
+`install`コマンドはカレントディレクトリから`composer.json`ファイルを読み込み、
+依存物を解決し、それらを`vendor`配下にインストールします。
+
+<!--
 The `install` command reads the `composer.json` file from the current
 directory, resolves the dependencies, and installs them into `vendor`.
+-->
 
     $ php composer.phar install
 
+カレントディレクトリに`composer.lock`ファイルが存在する場合は、
+依存物を解決する代わりに、そこから厳密なバージョンを使います。
+これはライブラリを使う全てのユーザが同じバージョンの依存物を得ることを保証します。
+
+<!--
 If there is a `composer.lock` file in the current directory, it will use the
 exact versions from there instead of resolving them. This ensures that
 everyone using the library will get the same versions of the dependencies.
+-->
 
+`composer.lock`ファイルがない場合、composerは依存物を解決したあと、これを作成します。
+
+<!--
 If there is no `composer.lock` file, composer will create one after dependency
 resolution.
+-->
 
 ### Options
 

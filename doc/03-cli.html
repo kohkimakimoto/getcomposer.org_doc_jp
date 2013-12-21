@@ -132,14 +132,30 @@ while using some smart defaults.
 -->
 
 <h2 id="install">install</h2>
-<p>The <code>install</code> command reads the <code>composer.json</code> file from the current
-directory, resolves the dependencies, and installs them into <code>vendor</code>.</p>
+
+<p><code>install</code>コマンドはカレントディレクトリから<code>composer.json</code>ファイルを読み込み、
+依存物を解決し、それらを<code>vendor</code>配下にインストールします。</p>
+<!--
+The `install` command reads the `composer.json` file from the current
+directory, resolves the dependencies, and installs them into `vendor`.
+-->
+
 <pre><code>$ php composer.phar install</code></pre>
-<p>If there is a <code>composer.lock</code> file in the current directory, it will use the
+<p>カレントディレクトリに<code>composer.lock</code>ファイルが存在する場合は、
+依存物を解決する代わりに、そこから厳密なバージョンを使います。
+これはライブラリを使う全てのユーザが同じバージョンの依存物を得ることを保証します。</p>
+<!--
+If there is a `composer.lock` file in the current directory, it will use the
 exact versions from there instead of resolving them. This ensures that
-everyone using the library will get the same versions of the dependencies.</p>
-<p>If there is no <code>composer.lock</code> file, composer will create one after dependency
-resolution.</p>
+everyone using the library will get the same versions of the dependencies.
+-->
+
+<p><code>composer.lock</code>ファイルがない場合、composerは依存物を解決したあと、これを作成します。</p>
+<!--
+If there is no `composer.lock` file, composer will create one after dependency
+resolution.
+-->
+
 <h3 id="options">Options</h3>
 <ul>
 <li><strong>--prefer-source:</strong> There are two ways of downloading a package: <code>source</code>

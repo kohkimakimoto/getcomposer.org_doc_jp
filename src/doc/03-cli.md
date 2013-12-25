@@ -131,14 +131,24 @@ If there is no `composer.lock` file, composer will create one after dependency
 resolution.
 -->
 
-### Options
+<h3 id="options">オプション</h3>
 
+* **--prefer-source:** パッケージをダウンロードする方法は２つあります: `source`
+  と`dist`です。安定したバージョンのため、composerは`dist`をデフォルトで使います。
+  `source`はバージョンコントールリポジトリです。`--prefer-source`を有効にすると、
+  composerはそれが存在する場合`source`からインストールします。これは
+  プロジェクトのバグフィックスを行いたい場合便利です。
+  依存物をローカルにcloneしたgitから直接取得します。
+
+<!--
 * **--prefer-source:** There are two ways of downloading a package: `source`
   and `dist`. For stable versions composer will use the `dist` by default.
   The `source` is a version control repository. If `--prefer-source` is
   enabled, composer will install from `source` if there is one. This is
   useful if you want to make a bugfix to a project and get a local git
   clone of the dependency directly.
+-->
+
 * **--prefer-dist:** Reverse of `--prefer-source`, composer will install
   from `dist` if possible. This can speed up installs substantially on build
   servers and other use cases where you typically do not run updates of the

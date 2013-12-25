@@ -156,14 +156,26 @@ If there is no `composer.lock` file, composer will create one after dependency
 resolution.
 -->
 
-<h3 id="options">Options</h3>
+<h3 id="options">オプション</h3>
+
 <ul>
-<li><strong>--prefer-source:</strong> There are two ways of downloading a package: <code>source</code>
-and <code>dist</code>. For stable versions composer will use the <code>dist</code> by default.
-The <code>source</code> is a version control repository. If <code>--prefer-source</code> is
-enabled, composer will install from <code>source</code> if there is one. This is
-useful if you want to make a bugfix to a project and get a local git
-clone of the dependency directly.</li>
+<li><strong>--prefer-source:</strong> パッケージをダウンロードする方法は２つあります: <code>source</code>
+と<code>dist</code>です。安定したバージョンのため、composerは<code>dist</code>をデフォルトで使います。
+<code>source</code>はバージョンコントールリポジトリです。<code>--prefer-source</code>を有効にすると、
+composerはそれが存在する場合<code>source</code>からインストールします。これは
+プロジェクトのバグフィックスを行いたい場合便利です。
+依存物をローカルにcloneしたgitから直接取得します。</li>
+</ul>
+<!--
+* **--prefer-source:** There are two ways of downloading a package: `source`
+  and `dist`. For stable versions composer will use the `dist` by default.
+  The `source` is a version control repository. If `--prefer-source` is
+  enabled, composer will install from `source` if there is one. This is
+  useful if you want to make a bugfix to a project and get a local git
+  clone of the dependency directly.
+-->
+
+<ul>
 <li><strong>--prefer-dist:</strong> Reverse of <code>--prefer-source</code>, composer will install
 from <code>dist</code> if possible. This can speed up installs substantially on build
 servers and other use cases where you typically do not run updates of the

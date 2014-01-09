@@ -1,8 +1,20 @@
 # composer.json
 
-This chapter will explain all of the fields available in `composer.json`.
+<!--
+# composer.json
+-->
 
+この章では`composer.json`で利用できる全てのフィールドについて説明します。
+
+<!--
+This chapter will explain all of the fields available in `composer.json`.
+-->
+
+## JSONスキーマ
+
+<!--
 ## JSON schema
+-->
 
 We have a [JSON schema](http://json-schema.org) that documents the format and
 can also be used to validate your `composer.json`. In fact, it is used by the
